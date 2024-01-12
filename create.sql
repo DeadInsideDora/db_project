@@ -38,10 +38,7 @@ CREATE TABLE hunters_guild (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(25) NOT NULL,
     last_name VARCHAR(25) NOT NULL,
-    post guild_post NOT NULL,
-    full_name VARCHAR(50),
-    CHECK (full_name = first_name || ' ' || last_name)
-
+    post guild_post NOT NULL
 );
 
 CREATE TABLE organizators (
@@ -68,12 +65,10 @@ CREATE TABLE candidates (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(25) NOT NULL,
     last_name VARCHAR(25) NOT NULL,
-    full_name VARCHAR(50),
     team_id INT,
     status_id INT NOT NULL,
     FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE,
-    FOREIGN KEY (status_id) REFERENCES status(id) ON DELETE CASCADE,
-    CHECK (full_name = first_name || ' ' || last_name)
+    FOREIGN KEY (status_id) REFERENCES status(id) ON DELETE CASCADE
 );
 
 CREATE TABLE team_members (
@@ -191,6 +186,11 @@ BEGIN
     IF (SELECT description FROM status WHERE id = (SELECT status_id FROM candidates WHERE id = NEW.candidate_id)) !=
        'ДОПУЩЕН К ИСПЫТАНИЮ' THEN
         RAISE EXCEPTION 'Candidate must have status "ДОПУЩЕН К ИСПЫТАНИЮ" in order to be in trials_in_process';
+    ELSE
+        -- Если статус равен "ДОПУЩЕН К ИСПЫТАНИЮ", изменяем статус на "В ПРОЦЕССЕ ИСПЫТАНИЯ"
+        UPDATE candidates
+        SET status_id = (SELECT id FROM status WHERE description = 'В ПРОЦЕССЕ ИСПЫТАНИЯ')
+        WHERE id = NEW.candidate_id;
     END IF;
     RETURN NEW;
 END;
@@ -201,3 +201,22 @@ BEFORE INSERT OR UPDATE
 ON trial_in_process
 FOR EACH ROW
 EXECUTE FUNCTION check_candidate_status();
+
+-- изменения статуса кандидата после доабвления в историю (для тех, кто продолжает участие в экзамене)
+CREATE OR REPLACE FUNCTION update_candidate_status_after_history_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.trial_status = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ') THEN
+        UPDATE candidates
+        SET status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ИСПЫТАНИЮ')
+        WHERE id = NEW.candidate_id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trials_history_update_candidate_status
+AFTER INSERT
+ON trials_history
+FOR EACH ROW
+EXECUTE FUNCTION update_candidate_status_after_history_insert();
