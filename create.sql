@@ -148,3 +148,56 @@ CREATE TABLE interaction (
     FOREIGN KEY (interaction_types_id) REFERENCES interaction_types(id) ON DELETE CASCADE,
     CHECK (time_end > time_start)
 );
+
+
+
+-- Триггер на проверку времени турнира и испытаний
+CREATE OR REPLACE FUNCTION check_tournament_times()
+RETURNS TRIGGER AS $$
+DECLARE
+    v_start_time TIMESTAMP;
+    v_end_time TIMESTAMP;
+BEGIN
+    -- Получаем время начала и конца турнира
+    v_start_time := NEW.time_start;
+    v_end_time := NEW.time_end;
+
+    -- Проверяем, что tournament.time_start <= time_start и tournament.time_end >= time_end
+    IF EXISTS (
+        SELECT 1
+        FROM trials t
+        JOIN trials_in_group tg ON t.id = tg.trials_id
+        WHERE tg.trials_group = NEW.trials_group_id
+        AND (v_start_time > t.time_start OR v_end_time < t.time_end)
+    ) THEN
+        RAISE EXCEPTION 'Invalid tournament times. Check the start and end times of trials in the specified trials group.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_tournament_times_trigger
+BEFORE INSERT OR UPDATE
+ON tournament
+FOR EACH ROW
+EXECUTE FUNCTION check_tournament_times();
+
+
+-- првоерка статуса кандидата (есть ли допуск с испытанию)
+CREATE OR REPLACE FUNCTION check_candidate_status()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (SELECT description FROM status WHERE id = (SELECT status_id FROM candidates WHERE id = NEW.candidate_id)) !=
+       'ДОПУЩЕН К ИСПЫТАНИЮ' THEN
+        RAISE EXCEPTION 'Candidate must have status "ДОПУЩЕН К ИСПЫТАНИЮ" in order to be in trials_in_process';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trials_in_process_status_check
+BEFORE INSERT OR UPDATE
+ON trial_in_process
+FOR EACH ROW
+EXECUTE FUNCTION check_candidate_status();
