@@ -4,10 +4,10 @@ CREATE TYPE guild_post AS ENUM ('председатель', 'рядовой чл
 CREATE TABLE trials (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    time_start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    time_start TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
     time_end TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
     description TEXT,
-    CHECK (time_end > time_start)
+    CHECK (time_end >= time_start)
 );
 
 CREATE TABLE trials_group (
@@ -27,11 +27,11 @@ CREATE TABLE trials_in_group (
 
 CREATE TABLE tournament (
     id SERIAL PRIMARY KEY,
-    time_start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    time_start TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
     time_end TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
     trials_group_id INT NOT NULL,
     FOREIGN KEY (trials_group_id) REFERENCES trials_group(id) ON DELETE CASCADE,
-    CHECK (time_end > time_start)
+    CHECK (time_end >= time_start)
 );
 
 CREATE TABLE hunters_guild (
@@ -137,7 +137,7 @@ CREATE TABLE interaction (
     id SERIAL PRIMARY KEY,
     interaction_group_id INT NOT NULL,
     interaction_types_id INT NOT NULL,
-    time_start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    time_start TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
     time_end TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
     FOREIGN KEY (interaction_group_id) REFERENCES interaction_group(id) ON DELETE CASCADE,
     FOREIGN KEY (interaction_types_id) REFERENCES interaction_types(id) ON DELETE CASCADE,
@@ -191,6 +191,10 @@ BEGIN
         UPDATE candidates
         SET status_id = (SELECT id FROM status WHERE description = 'В ПРОЦЕССЕ ИСПЫТАНИЯ')
         WHERE id = NEW.candidate_id;
+    END IF;
+    -- проверка, что время начало испытания < чем настоящиее
+    IF (SELECT time_start FROM trials WHERE id = NEW.trial_id) > CURRENT_TIMESTAMP THEN
+        RAISE EXCEPTION 'Cannot start a trial before its scheduled time';
     END IF;
     RETURN NEW;
 END;
