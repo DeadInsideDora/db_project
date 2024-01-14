@@ -260,3 +260,23 @@ BEGIN
     VALUES (v_trials_group_id);
 END;
 $$ LANGUAGE plpgsql;
+
+-- добавление кондидатов в триал ин процесс
+CREATE OR REPLACE FUNCTION insert_candidates_into_trial_in_process(
+    p_tournament_id INT,
+    p_trials_id INT
+)
+RETURNS VOID AS $$
+BEGIN
+    -- Вставляем подходящих кандидатов в таблицу trial_in_process
+    INSERT INTO trial_in_process (tournament_id, trial_id, candidate_id)
+    SELECT
+        p_tournament_id,
+        p_trials_id,
+        c.id
+    FROM
+        candidates c
+    WHERE
+        c.status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ИСПЫТАНИЮ');
+END;
+$$ LANGUAGE plpgsql;
