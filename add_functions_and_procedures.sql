@@ -1,14 +1,14 @@
-
- -- добавление участников в команду и обновляем team_id у кандидатов (если  не существует, то создание команды)
+-- добавление участников в команду и обновляем team_id у кандидатов (если  не существует, то создание команды)
 CREATE OR REPLACE FUNCTION add_members_or_create_team(
     p_team_title VARCHAR(25),
     p_team_description TEXT,
-    p_member_ids INT[]
+    p_member_names VARCHAR[]
 )
 RETURNS VOID AS $$
 DECLARE
     v_team_id INT;
     v_member_id INT;
+    v_member_name VARCHAR(25);
 BEGIN
     -- Проверяем, существует ли команда с указанным названием
     SELECT id INTO v_team_id FROM teams WHERE title = p_team_title;
@@ -23,16 +23,20 @@ BEGIN
     END IF;
 
     -- Добавляем участников в команду
-    FOREACH v_member_id IN ARRAY p_member_ids
+    FOREACH v_member_name IN ARRAY p_member_names
     LOOP
-        -- Проверяем, существует ли кандидат с указанным v_member_id
-        IF NOT EXISTS (SELECT 1 FROM candidates WHERE id = v_member_id) THEN
-            RAISE EXCEPTION 'Candidate with id % does not exist', v_member_id;
-        END IF;
+        -- Проверяем, существует ли кандидат с указанным v_member_name
+        SELECT id INTO v_member_id
+        FROM candidates
+        WHERE CONCAT(first_name, ' ', last_name) = v_member_name;
 
+        IF v_member_id IS NULL THEN
+            RAISE EXCEPTION 'Candidate with name % does not exist', v_member_name;
+        END IF;
+        
         -- Проверяем, не является ли кандидат уже членом другой команды
         IF EXISTS (SELECT 1 FROM team_members WHERE candidate_id = v_member_id AND team_id <> v_team_id) THEN
-            RAISE EXCEPTION 'Candidate with id % is already a member of another team', v_member_id;
+            RAISE EXCEPTION 'Candidate with name % is already a member of another team', v_member_name;
         END IF;
 
         -- Проверяем, не является ли кандидат уже членом текущей команды

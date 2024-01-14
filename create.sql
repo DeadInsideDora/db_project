@@ -216,31 +216,35 @@ RETURNS TRIGGER AS $$
 DECLARE
     v_total_trials INT;
     v_passed_trials INT;
-    v_candidate_status_id INT;
 BEGIN
-    -- Получаем общее количество испытаний и количество пройденных испытаний для данного кандидата в турнире
-    SELECT COUNT(*), COUNT(*) FILTER(WHERE trial_status = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ'))
-    INTO v_total_trials, v_passed_trials
-    FROM trials_history
-    WHERE candidate_id = NEW.candidate_id AND tournament_id = NEW.tournament_id;
+    -- Получаем общее количество испытаний в trials_group для данного турнира
+    SELECT COUNT(tg.trials_id) INTO v_total_trials
+    FROM trials_in_group tg
+    WHERE tg.trials_group = (
+        SELECT tg.trials_group
+        FROM trials_in_group tg
+        JOIN trials_history th ON tg.trials_id = th.trial_id
+        WHERE th.id = NEW.id
+    );
 
-    -- Получаем текущий статус кандидата
-    SELECT status_id INTO v_candidate_status_id
-    FROM candidates
-    WHERE id = NEW.candidate_id;
+    -- Получаем количество пройденных испытаний для данного кандидата
+    SELECT COUNT(th.trial_id) INTO v_passed_trials
+    FROM trials_history th
+    WHERE th.candidate_id = NEW.candidate_id
+    AND th.trial_status = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ');
 
-    -- Если все испытания в турнире пройдены успешно, изменяем статус на "ДОПУЩЕН К ПОЛУЧЕНИЮ ЗВАНИЯ"
-    IF v_total_trials = v_passed_trials THEN
-        IF v_candidate_status_id = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ') THEN
-            UPDATE candidates
-            SET status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ПОЛУЧЕНИЮ ЗВАНИЯ')
-            WHERE id = NEW.candidate_id;
-        END IF;
-    -- Если просто прошел текущее испытание, изменяем статус на "ДОПУЩЕН К ИСПЫТАНИЮ"
-    ELSIF v_candidate_status_id = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ') THEN
+    -- Обновляем статус кандидата
+    IF v_passed_trials = v_total_trials THEN
+        -- Кандидат прошел все испытания в турнире
+        UPDATE candidates
+        SET status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ПОЛУЧЕНИЮ ЗВАНИЯ')
+        WHERE id = NEW.candidate_id;
+    ELSE
+        IF NEW.trial_status = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ') THEN
         UPDATE candidates
         SET status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ИСПЫТАНИЮ')
         WHERE id = NEW.candidate_id;
+        END IF;
     END IF;
 
     RETURN NEW;
