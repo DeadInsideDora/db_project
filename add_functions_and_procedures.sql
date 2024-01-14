@@ -127,9 +127,7 @@ CREATE OR REPLACE PROCEDURE add_trial_and_rules(
     hunters_full_names VARCHAR[],
     rules_descriptions VARCHAR[],
     trial_title VARCHAR,
-    trial_description TEXT,
-    t_time_start TIMESTAMP,
-    t_time_end TIMESTAMP
+    trial_description TEXT
 )
 LANGUAGE plpgsql AS $$
 DECLARE
@@ -140,8 +138,8 @@ DECLARE
     hunter_fuLL_name VARCHAR(50);
 BEGIN
     -- Добавляем запись в таблицу trials
-    INSERT INTO trials (title, description, time_start, time_end)
-    VALUES (trial_title, trial_description, t_time_start, t_time_end)
+    INSERT INTO trials (title, description)
+    VALUES (trial_title, trial_description)
     RETURNING id INTO trial_id;
 
     -- Перебираем массив правил и добавляем их в таблицу rules
@@ -224,9 +222,7 @@ $$ LANGUAGE plpgsql;
 -- создание турнира и группы испытаний
 CREATE OR REPLACE FUNCTION create_tournament(
     p_trials_title VARCHAR[],
-    p_description TEXT,
-    p_time_start TIMESTAMP,
-    p_time_end TIMESTAMP
+    p_description TEXT
 )
 RETURNS VOID AS $$
 DECLARE
@@ -256,7 +252,7 @@ BEGIN
     END LOOP;
 
     -- Создаем запись в таблице tournament
-    INSERT INTO tournament (trials_group_id, time_start, time_end)
-    VALUES (v_trials_group_id, p_time_start, p_time_end);
+    INSERT INTO tournament (trials_group_id)
+    VALUES (v_trials_group_id;
 END;
 $$ LANGUAGE plpgsql;
