@@ -180,6 +180,7 @@ DECLARE
     v_candidate_id INT;
     v_trial_id INT;
     v_trial_status_id INT;
+    v_tournament_id INT;
 BEGIN
     IF array_length(p_candidate_names, 1) <> array_length(p_new_statuses, 1) THEN
         RAISE EXCEPTION 'Array lengths do not match';
@@ -188,7 +189,7 @@ BEGIN
     FOR i IN 1..array_length(p_candidate_names, 1)
     LOOP
         -- Получаем id кандидата и trial_id из trial_in_process
-        SELECT candidate_id, trial_id INTO v_candidate_id, v_trial_id
+        SELECT candidate_id, trial_id, tournament_id INTO v_candidate_id, v_trial_id, v_tournament_id
         FROM trial_in_process
         WHERE candidate_id = (SELECT id FROM candidates
                               WHERE first_name || ' ' || last_name = p_candidate_names[i]);
@@ -207,8 +208,8 @@ BEGIN
         WHERE id = v_candidate_id;
 
         -- Вставляем данные в trials_history с использованием нового статуса кандидата и trial_id
-        INSERT INTO trials_history (candidate_id, trial_id, trial_status)
-        VALUES (v_candidate_id, v_trial_id, v_trial_status_id);
+        INSERT INTO trials_history (candidate_id, trial_id, tournament_id, trial_status)
+        VALUES (v_candidate_id, v_trial_id,v_tournament_id, v_trial_status_id);
 
         -- Удаляем запись из trial_in_process
         DELETE FROM trial_in_process

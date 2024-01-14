@@ -82,10 +82,12 @@ CREATE TABLE team_members (
 
 CREATE TABLE trial_in_process (
     id SERIAL PRIMARY KEY,
+    tournament_id INT NOT NULL,
     trial_id INT NOT NULL,
     candidate_id INT NOT NULL,
     FOREIGN KEY (trial_id) REFERENCES trials(id) ON DELETE CASCADE,
-    FOREIGN KEY (candidate_id) REFERENCES candidates(id) ON DELETE CASCADE
+    FOREIGN KEY (candidate_id) REFERENCES candidates(id) ON DELETE CASCADE,
+    FOREIGN KEY (tournament_id) REFERENCES tournament(id) ON DELETE CASCADE
 );
 
 CREATE TABLE trials_history (
@@ -93,9 +95,11 @@ CREATE TABLE trials_history (
     candidate_id INT NOT NULL,
     trial_id INT NOT NULL,
     trial_status INT NOT NULL,
+    tournament_id INT NOT NULL,
     FOREIGN KEY (candidate_id) REFERENCES candidates(id) ON DELETE CASCADE,
     FOREIGN KEY (trial_id) REFERENCES trials(id) ON DELETE CASCADE,
-    FOREIGN KEY (trial_status) REFERENCES status(id) ON DELETE CASCADE
+    FOREIGN KEY (trial_status) REFERENCES status(id) ON DELETE CASCADE,
+    FOREIGN KEY (tournament_id) REFERENCES tournament(id) ON DELETE CASCADE
 );
 
 CREATE TABLE rules (
@@ -206,15 +210,39 @@ ON trial_in_process
 FOR EACH ROW
 EXECUTE FUNCTION check_candidate_status();
 
--- изменения статуса кандидата после доабвления в историю (для тех, кто продолжает участие в экзамене)
+-- Триггер на изменение статуса кандидата после добавления записи в trials_history
 CREATE OR REPLACE FUNCTION update_candidate_status_after_history_insert()
 RETURNS TRIGGER AS $$
+DECLARE
+    v_total_trials INT;
+    v_passed_trials INT;
+    v_candidate_status_id INT;
 BEGIN
-    IF NEW.trial_status = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ') THEN
+    -- Получаем общее количество испытаний и количество пройденных испытаний для данного кандидата в турнире
+    SELECT COUNT(*), COUNT(*) FILTER(WHERE trial_status = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ'))
+    INTO v_total_trials, v_passed_trials
+    FROM trials_history
+    WHERE candidate_id = NEW.candidate_id AND tournament_id = NEW.tournament_id;
+
+    -- Получаем текущий статус кандидата
+    SELECT status_id INTO v_candidate_status_id
+    FROM candidates
+    WHERE id = NEW.candidate_id;
+
+    -- Если все испытания в турнире пройдены успешно, изменяем статус на "ДОПУЩЕН К ПОЛУЧЕНИЮ ЗВАНИЯ"
+    IF v_total_trials = v_passed_trials THEN
+        IF v_candidate_status_id = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ') THEN
+            UPDATE candidates
+            SET status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ПОЛУЧЕНИЮ ЗВАНИЯ')
+            WHERE id = NEW.candidate_id;
+        END IF;
+    -- Если просто прошел текущее испытание, изменяем статус на "ДОПУЩЕН К ИСПЫТАНИЮ"
+    ELSIF v_candidate_status_id = (SELECT id FROM status WHERE description = 'ПРОШЕЛ ИСПЫТАНИЕ') THEN
         UPDATE candidates
         SET status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ИСПЫТАНИЮ')
         WHERE id = NEW.candidate_id;
     END IF;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
