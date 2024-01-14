@@ -68,7 +68,8 @@ CREATE TABLE candidates (
     team_id INT,
     status_id INT NOT NULL,
     FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE,
-    FOREIGN KEY (status_id) REFERENCES status(id) ON DELETE CASCADE
+    FOREIGN KEY (status_id) REFERENCES status(id) ON DELETE CASCADE,
+    UNIQUE (first_name, last_name)
 );
 
 CREATE TABLE team_members (
