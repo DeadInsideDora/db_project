@@ -157,7 +157,6 @@ BEGIN
         SELECT id INTO hunter_id
         FROM hunters_guild
          WHERE first_name || ' ' || last_name = hunter_full_name;
-;
 
         -- Если охотник не найден, выбрасываем ошибку
         IF hunter_id IS NULL THEN
@@ -253,6 +252,6 @@ BEGIN
 
     -- Создаем запись в таблице tournament
     INSERT INTO tournament (trials_group_id)
-    VALUES (v_trials_group_id;
+    VALUES (v_trials_group_id);
 END;
 $$ LANGUAGE plpgsql;
