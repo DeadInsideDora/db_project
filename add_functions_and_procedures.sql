@@ -10,6 +10,7 @@ DECLARE
     v_team_id INT;
     v_member_id INT;
 BEGIN
+ BEGIN
     -- Проверяем, существует ли команда с указанным названием
     SELECT id INTO v_team_id FROM teams WHERE title = p_team_title;
 
@@ -43,6 +44,16 @@ BEGIN
             UPDATE candidates SET team_id = v_team_id WHERE id = v_member_id;
         END IF;
     END LOOP;
+ EXCEPTION
+        -- Обработка исключений
+        WHEN OTHERS THEN
+            -- Откатываем транзакцию в случае ошибки
+            ROLLBACK;
+            -- Переопределяем исключение, чтобы передать его выше
+            RAISE;
+    END;
+    -- Коммит транзакции
+    COMMIT;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -61,6 +72,7 @@ DECLARE
     interaction_id INT;
     candidate_id INT;
 BEGIN
+ BEGIN
     -- Добавляем запись в таблицу interaction_group
     INSERT INTO interaction_group (description)
     VALUES (interaction_group_description)
@@ -88,6 +100,16 @@ BEGIN
         INSERT INTO candidate_in_interaction_group (candidate_id, interaction_group_id)
         VALUES (candidate_id, interaction_group_id);
     END LOOP;
+ EXCEPTION
+        -- Обработка исключений
+        WHEN OTHERS THEN
+            -- Откатываем транзакцию в случае ошибки
+            ROLLBACK;
+            -- Переопределяем исключение, чтобы передать его выше
+            RAISE;
+    END;
+    -- Коммит транзакции
+    COMMIT;
 END;
 $$;
 
@@ -102,6 +124,7 @@ LANGUAGE plpgsql AS $$
 DECLARE
     v_candidate_id INT;
 BEGIN
+ BEGIN
     -- Добавляем кандидата
     INSERT INTO candidates (first_name, last_name, status_id)
     VALUES (p_first_name, p_last_name, (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ИСПЫТАНИЮ'))
@@ -117,6 +140,16 @@ BEGIN
         INSERT INTO information (candidate_id, fact, weight)
         VALUES (v_candidate_id, p_facts[i], COALESCE(p_weights[i], 0));
     END LOOP;
+ EXCEPTION
+        -- Обработка исключений
+        WHEN OTHERS THEN
+            -- Откатываем транзакцию в случае ошибки
+            ROLLBACK;
+            -- Переопределяем исключение, чтобы передать его выше
+            RAISE;
+    END;
+    -- Коммит транзакции
+    COMMIT;
 END;
 $$;
 
@@ -127,9 +160,7 @@ CREATE OR REPLACE PROCEDURE add_trial_and_rules(
     hunters_full_names VARCHAR[],
     rules_descriptions VARCHAR[],
     trial_title VARCHAR,
-    trial_description TEXT,
-    t_time_start TIMESTAMP,
-    t_time_end TIMESTAMP
+    trial_description TEXT
 )
 LANGUAGE plpgsql AS $$
 DECLARE
@@ -139,37 +170,48 @@ DECLARE
     rule_description TEXT;
     hunter_fuLL_name VARCHAR(50);
 BEGIN
-    -- Добавляем запись в таблицу trials
-    INSERT INTO trials (title, description, time_start, time_end)
-    VALUES (trial_title, trial_description, t_time_start, t_time_end)
-    RETURNING id INTO trial_id;
-
-    -- Перебираем массив правил и добавляем их в таблицу rules
-    FOREACH rule_description IN ARRAY rules_descriptions
-    LOOP
-        INSERT INTO rules (trial_id, description)
-        VALUES (trial_id, rule_description)
-        RETURNING id INTO rule_id;
-    END LOOP;
-
-    -- Перебираем массив охотников и добавляем записи в таблицу organizators
-    FOREACH hunter_full_name IN ARRAY hunters_full_names
-    LOOP
-        -- Поиск ID охотника по его full_name
-        SELECT id INTO hunter_id
-        FROM hunters_guild
-         WHERE first_name || ' ' || last_name = hunter_full_name;
-;
-
-        -- Если охотник не найден, выбрасываем ошибку
-        IF hunter_id IS NULL THEN
-            RAISE EXCEPTION 'Hunter with name % not found', hunter_full_name;
-        END IF;
-
-        -- Добавляем запись в таблицу organizators
-        INSERT INTO organizators (hunter_id, trial_id)
-        VALUES (hunter_id, trial_id);
-    END LOOP;
+ BEGIN
+     -- Добавляем запись в таблицу trials
+     INSERT INTO trials (title, description)
+     VALUES (trial_title, trial_description)
+     RETURNING id INTO trial_id;
+ 
+     -- Перебираем массив правил и добавляем их в таблицу rules
+     FOREACH rule_description IN ARRAY rules_descriptions
+     LOOP
+         INSERT INTO rules (trial_id, description)
+         VALUES (trial_id, rule_description)
+         RETURNING id INTO rule_id;
+     END LOOP;
+ 
+     -- Перебираем массив охотников и добавляем записи в таблицу organizators
+     FOREACH hunter_full_name IN ARRAY hunters_full_names
+     LOOP
+         -- Поиск ID охотника по его full_name
+         SELECT id INTO hunter_id
+         FROM hunters_guild
+          WHERE first_name || ' ' || last_name = hunter_full_name;
+ ;
+ 
+         -- Если охотник не найден, выбрасываем ошибку
+         IF hunter_id IS NULL THEN
+             RAISE EXCEPTION 'Hunter with name % not found', hunter_full_name;
+         END IF;
+ 
+         -- Добавляем запись в таблицу organizators
+         INSERT INTO organizators (hunter_id, trial_id)
+         VALUES (hunter_id, trial_id);
+     END LOOP;
+  EXCEPTION
+        -- Обработка исключений
+        WHEN OTHERS THEN
+            -- Откатываем транзакцию в случае ошибки
+            ROLLBACK;
+            -- Переопределяем исключение, чтобы передать его выше
+            RAISE;
+    END;
+    -- Коммит транзакции
+    COMMIT;
 END;
 $$;
 
@@ -184,6 +226,7 @@ DECLARE
     v_trial_id INT;
     v_trial_status_id INT;
 BEGIN
+ BEGIN
     IF array_length(p_candidate_names, 1) <> array_length(p_new_statuses, 1) THEN
         RAISE EXCEPTION 'Array lengths do not match';
     END IF;
@@ -217,6 +260,16 @@ BEGIN
         DELETE FROM trial_in_process
         WHERE candidate_id = v_candidate_id AND trial_id = v_trial_id;
     END LOOP;
+   EXCEPTION
+        -- Обработка исключений
+        WHEN OTHERS THEN
+            -- Откатываем транзакцию в случае ошибки
+            ROLLBACK;
+            -- Переопределяем исключение, чтобы передать его выше
+            RAISE;
+    END;
+    -- Коммит транзакции
+    COMMIT;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -224,9 +277,7 @@ $$ LANGUAGE plpgsql;
 -- создание турнира и группы испытаний
 CREATE OR REPLACE FUNCTION create_tournament(
     p_trials_title VARCHAR[],
-    p_description TEXT,
-    p_time_start TIMESTAMP,
-    p_time_end TIMESTAMP
+    p_description TEXT
 )
 RETURNS VOID AS $$
 DECLARE
@@ -234,6 +285,7 @@ DECLARE
     v_trial_id INT;
     v_trial_title VARCHAR(255);
 BEGIN
+ BEGIN
     -- Создаем запись в таблице trials_group
     INSERT INTO trials_group (description) VALUES (p_description)
     RETURNING id INTO v_trials_group_id;
@@ -256,7 +308,17 @@ BEGIN
     END LOOP;
 
     -- Создаем запись в таблице tournament
-    INSERT INTO tournament (trials_group_id, time_start, time_end)
-    VALUES (v_trials_group_id, p_time_start, p_time_end);
+    INSERT INTO tournament (trials_group_id)
+    VALUES (v_trials_group_id);
+ EXCEPTION
+        -- Обработка исключений
+        WHEN OTHERS THEN
+            -- Откатываем транзакцию в случае ошибки
+            ROLLBACK;
+            -- Переопределяем исключение, чтобы передать его выше
+            RAISE;
+    END;
+    -- Коммит транзакции
+    COMMIT;
 END;
 $$ LANGUAGE plpgsql;
