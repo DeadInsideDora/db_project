@@ -110,7 +110,7 @@ def trial_in_process():
 def trials_hist():
     return f"INSERT INTO trials_history (candidate_id, trial_id, trial_status, tournament_id) VALUES ({generate_random_integer(1,10000)}, {generate_random_integer(1,30)}, (select id from status where description = {sql_str_converter(random.choice(statuses_arr))}), {generate_random_integer(1,5000)});"
 
-FILENAME = "generated_insert.sql"
+FILENAME = "scripts/generated_insert.sql"
 with open(FILENAME, 'w') as file:
     file.write(statuses() + '\n')
     file.write("\n")
