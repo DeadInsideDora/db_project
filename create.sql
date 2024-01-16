@@ -1,4 +1,19 @@
-CREATE TYPE guild_post AS ENUM ('председатель', 'рядовой член', 'заместитель председателя');
+CREATE TYPE guild_post AS ENUM 
+('Guild Master',
+'Vice Guild Master',
+'Senior Hunter',
+'Examiner',
+'Trainer',
+'Mission Coordinator',
+'Field Researcher',
+'Combat Specialist',
+'Intelligence Analyst',
+'Medical Officer',
+'Infiltration Expert',
+'Beast Hunter',
+'Archivist',
+'Navigational Specialist',
+'Artifact Collector');
 
 
 CREATE TABLE trials (
@@ -56,7 +71,7 @@ CREATE TABLE status (
 
 CREATE TABLE teams (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(25) NOT NULL UNIQUE,
+    title VARCHAR(255) NOT NULL UNIQUE,
     description TEXT
 );
 
