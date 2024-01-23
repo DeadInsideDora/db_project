@@ -1,5 +1,7 @@
 package zxc.kyoto.server;
 
+import zxc.kyoto.dao.UsersService;
+import zxc.kyoto.entity.Request;
 import zxc.kyoto.utility.Config;
 import zxc.kyoto.utility.DataBaseHandler;
 import zxc.kyoto.entity.User;
@@ -28,6 +30,7 @@ public class Server {
         }
         Config config = new Config(Paths.get("config.properties"));
         DataBaseHandler dataBaseHandler = new DataBaseHandler(config);
+        UsersService.usersAndPasswords.put("admin", "admin");
         while (true) {
             new ClientHandler(server.accept()).start();
         }
@@ -50,9 +53,8 @@ public class Server {
             try {
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new ObjectInputStream(clientSocket.getInputStream());
-                User obj = (User) in.readObject();
-                System.out.println(obj.getUsername());
-                //obrabotka
+                Request req = (Request) in.readObject();
+                out.println(new Module().handle(req));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (ClassNotFoundException e) {
@@ -60,7 +62,6 @@ public class Server {
             }
 
 
-            out.println("answer");
 
             try {
                 in.close();

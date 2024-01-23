@@ -12,15 +12,13 @@ public class Client {
     private Socket clientSocket;
     private ObjectOutputStream out;
     private BufferedReader in;
-    private User user;
 
 
-    public void startConnection(String ip, int port, User user) throws IOException {
+    public void startConnection(String ip, int port) throws IOException {
         clientSocket = new Socket(ip, port);
         System.out.println("connect");
         out = new ObjectOutputStream(clientSocket.getOutputStream());
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        this.user = user;
     }
 
     public String sendObject(Object obj) throws IOException {

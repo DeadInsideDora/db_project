@@ -1,7 +1,3 @@
 
-l
-java:S1192"JDefine a constant instead of duplicating this literal "127.0.0.1" 3 times.(Øœâíıÿÿÿÿ8‹£²Ó1
-L	java:S106"+Replace this use of System.out by a logger.(Ô‚îíøÿÿÿÿ8Úæø±Ó1
-L	java:S106"+Replace this use of System.out by a logger.(Ô‚îíøÿÿÿÿ8Ó‰œ²Ó1
-L	java:S106"+Replace this use of System.out by a logger.(Ô‚îíøÿÿÿÿ8Ó‰œ²Ó1
-]	java:S125"<This block of commented-out lines of code should be removed.(¨™‡ûÿÿÿÿ8Ûæø±Ó1
+L	java:S106"+Replace this use of System.out by a logger.(…Ğ®ÿÿÿÿÿ8âÊ”¼Ó1
+]	java:S125"<This block of commented-out lines of code should be removed.(¨™‡ûÿÿÿÿ8ãÊ”¼Ó1
