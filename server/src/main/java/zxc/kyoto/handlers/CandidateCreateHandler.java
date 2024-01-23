@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class CandidateCreateHandler implements Handler{
 
     @Override
-    public boolean handle(User user, Object[] args) {
+    public String handle(User user, Object[] args) {
         String firstName = (String) args[0];
         String lastName = (String) args[1];
         String[] facts = (String[]) args[2];
@@ -19,11 +19,11 @@ public class CandidateCreateHandler implements Handler{
                 DataBaseService.addСandidate(firstName, lastName, facts, factsWeights);
             } catch (SQLException e) {
                 e.printStackTrace();
-                return false;
+                return e.getMessage();
             }
-            return true;
+            return "Success";
         }
-        return false;
+        return "Fail";
     }
 
 }

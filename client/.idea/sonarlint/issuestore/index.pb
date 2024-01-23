@@ -15,3 +15,5 @@ _
 /src/main/java/zxc/kyoto/util/UserContainer.java,9/0/90dd4c175f914eeaa3b26889187afd0e135e1e52
 [
 +src/main/java/zxc/kyoto/entity/Request.java,0/5/05955df09650fe2e3462e0faaa74984a9133fb52
+W
+'src/main/java/zxc/kyoto/util/Roles.java,9/7/97edab6ea39b7e9e1c5b9c567aa7ef071befc15a

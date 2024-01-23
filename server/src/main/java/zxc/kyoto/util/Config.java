@@ -1,4 +1,4 @@
-package zxc.kyoto.utility;
+package zxc.kyoto.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

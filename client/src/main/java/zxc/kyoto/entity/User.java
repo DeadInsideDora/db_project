@@ -1,17 +1,19 @@
 package zxc.kyoto.entity;
 
 
+import zxc.kyoto.util.Roles;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
     private final String username;
     private final String password;
-    private final boolean signIn;
+    private final Roles role;
 
-    public User(String username, String password, boolean sign) {
+    public User(String username, String password, Roles role) {
         this.username = username;
         this.password = password;
-        this.signIn=sign;
+        this.role=role;
     }
 
     public String getUsername() {
@@ -22,8 +24,8 @@ public class User implements Serializable {
         return password;
     }
 
-    public boolean isSignIn() {
-        return signIn;
+    public Roles getRole() {
+        return role;
     }
 
     @Override

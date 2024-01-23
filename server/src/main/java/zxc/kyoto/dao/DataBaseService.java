@@ -1,6 +1,6 @@
 package zxc.kyoto.dao;
 
-import zxc.kyoto.utility.DataBaseHandler;
+import zxc.kyoto.util.DataBaseHandler;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

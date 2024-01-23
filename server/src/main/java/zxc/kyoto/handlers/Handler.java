@@ -4,6 +4,6 @@ import zxc.kyoto.entity.User;
 
 public interface Handler {
 
-    boolean handle(User user, Object[] args);
+    String handle(User user, Object[] args);
 
 }

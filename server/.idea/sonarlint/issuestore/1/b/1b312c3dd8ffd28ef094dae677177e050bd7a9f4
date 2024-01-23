@@ -1,19 +1,21 @@
 
-`	java:S112;"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-`	java:S112="FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-g	java:S112G"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8¹¢²Ó1
-0
-java:S1700"Rename field "server"(­«ÚÒùÿÿÿÿ
-@	java:S106"+Replace this use of System.out by a logger.(İ‰‚ø
-D
-java:S2140")Use "java.util.Random.nextInt()" instead.(Ù±¾úÿÿÿÿ
-J
-java:S1481 "4Remove this unused "dataBaseHandler" local variable.(ñ²Ãç
-l
-java:S1450."QRemove the "in" field and declare it as a local variable in the relevant methods.(ï¼Œ­ûÿÿÿÿ
+g	java:S112="FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8˜À ÁÓ1
+g	java:S112?"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8˜À ÁÓ1
+g	java:S112I"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8˜À ÁÓ1
 h
-java:S1450-"RRemove the "out" field and declare it as a local variable in the relevant methods.(¨¥ÑÓ
-P
-java:S11614":Add the "@Override" annotation above this method signature(“–ış
+java:S1192#"FDefine a constant instead of duplicating this literal "admin" 3 times.(¼€¡·ıÿÿÿÿ8™À ÁÓ1
+7
+java:S1700"Rename field "server"(­«ÚÒùÿÿÿÿ8šÀ ÁÓ1
+G	java:S106"+Replace this use of System.out by a logger.(İ‰‚ø8ŸÀ ÁÓ1
+K
+java:S2140")Use "java.util.Random.nextInt()" instead.(Ù±¾úÿÿÿÿ8ŸÀ ÁÓ1
+Q
+java:S1481""4Remove this unused "dataBaseHandler" local variable.(ñ²Ãç8 À ÁÓ1
+s
+java:S14500"QRemove the "in" field and declare it as a local variable in the relevant methods.(ï¼Œ­ûÿÿÿÿ8¡À ÁÓ1
+o
+java:S1450/"RRemove the "out" field and declare it as a local variable in the relevant methods.(¨¥ÑÓ8¡À ÁÓ1
+W
+java:S11616":Add the "@Override" annotation above this method signature(“–ış8¢À ÁÓ1
 a
-java:S2147<"DCombine this catch with the one at line 58, which has the same body.(ıàÑÎ8¬Á¨±Ó1
+java:S2147>"DCombine this catch with the one at line 60, which has the same body.(ıàÑÎ8¢À ÁÓ1

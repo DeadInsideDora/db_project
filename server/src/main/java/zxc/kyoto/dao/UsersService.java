@@ -1,25 +1,27 @@
 package zxc.kyoto.dao;
 
+import zxc.kyoto.entity.User;
+import zxc.kyoto.util.Roles;
+
 import java.util.Hashtable;
 
 public final class UsersService {
-    public static Hashtable<String, String> usersAndPasswords =  new Hashtable<>();
+    public static Hashtable<String, User> users =  new Hashtable<>();
 
     public static boolean isUserExist(String username) {
-        System.out.println(usersAndPasswords.size());
-        return usersAndPasswords.containsKey(username);
+        return users.containsKey(username);
     }
 
-    public static boolean authorization(String username, String password) {
+    public static boolean authorization(String username, String password, Roles role) {
         if (isUserExist(username)) {
-            return usersAndPasswords.get(username).equals(password);
+            return users.get(username).getPassword().equals(password) && users.get(username).getRole().equals(role);
         }
         return false;
     }
 
-    public static boolean register(String username, String password) {
+    public static boolean register(String username, String password, Roles role) {
         if (isUserExist(username)) return false;
-        usersAndPasswords.put(username, password);
+        users.put(username, new User(username, password, role));
         return true;
     }
 }

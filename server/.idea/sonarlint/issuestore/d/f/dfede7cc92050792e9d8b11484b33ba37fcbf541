@@ -1,14 +1,13 @@
 
-
-java:S1319"pThe type of "usersAndPasswords" should be an interface such as "Map" rather than the implementation "Hashtable".(Ğ»†¹8Ø´Â»Ó1
-z
-java:S1104"]Make usersAndPasswords a static final constant or non-public and provide accessors if needed.(Ğ»†¹8Ø´Â»Ó1
-T
-java:S1444"7Make this "public static usersAndPasswords" field final(Ğ»†¹8Ø´Â»Ó1
+
+java:S1319	"dThe type of "users" should be an interface such as "Map" rather than the implementation "Hashtable".(ö¡¯×8ö®ÁÓ1
+n
+java:S1104	"QMake users a static final constant or non-public and provide accessors if needed.(ö¡¯×8÷®ÁÓ1
+H
+java:S1444	"+Make this "public static users" field final(ö¡¯×8÷®ÁÓ1
 :
-java:S2386"Make this member "protected".(Ğ»†¹8Ü´Â»Ó1
+java:S2386	"Make this member "protected".(ö¡¯×8ú®ÁÓ1
 s
-java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(Ğ»†¹8Ü´Â»Ó1
+java:S1149	"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(ö¡¯×8ú®ÁÓ1
 W
-java:S1118":Add a private constructor to hide the implicit public one.(–§¹¢8Ü´Â»Ó1
-L	java:S106	"+Replace this use of System.out by a logger.(ŸàŸôşÿÿÿÿ8Ş´Â»Ó1
+java:S1118":Add a private constructor to hide the implicit public one.(–§¹¢8û®ÁÓ1

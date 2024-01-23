@@ -2,14 +2,16 @@ package zxc.kyoto.server;
 
 import zxc.kyoto.dao.UsersService;
 import zxc.kyoto.entity.Request;
-import zxc.kyoto.utility.Config;
-import zxc.kyoto.utility.DataBaseHandler;
+import zxc.kyoto.util.Config;
+import zxc.kyoto.util.DataBaseHandler;
 import zxc.kyoto.entity.User;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Paths;
+
+import static zxc.kyoto.util.Roles.ADMIN;
 
 public class Server {
 
@@ -30,7 +32,7 @@ public class Server {
         }
         Config config = new Config(Paths.get("config.properties"));
         DataBaseHandler dataBaseHandler = new DataBaseHandler(config);
-        UsersService.usersAndPasswords.put("admin", "admin");
+        UsersService.users.put("admin", new User("admin", "admin", ADMIN));
         while (true) {
             new ClientHandler(server.accept()).start();
         }

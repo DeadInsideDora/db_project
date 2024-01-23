@@ -35,3 +35,11 @@ Z
 +src/main/java/zxc/kyoto/entity/Request.java,0/5/05955df09650fe2e3462e0faaa74984a9133fb52
 ]
 -src/main/java/zxc/kyoto/handlers/Handler.java,2/3/23736e252b97ee07502f6a60a970c200b107c758
+Z
+*src/main/java/zxc/kyoto/utility/Roles.java,5/b/5ba27cdb32beb584814d165e1ce26b055e215d1f
+e
+5src/main/java/zxc/kyoto/handlers/RegisterHandler.java,1/6/1660fa36cbf95bf08fa3b516ac983e32b292ee84
+a
+1src/main/java/zxc/kyoto/util/DataBaseHandler.java,4/e/4e0331d9ad6b07425bf3b5a2213fdb86986af523
+W
+'src/main/java/zxc/kyoto/util/Roles.java,9/7/97edab6ea39b7e9e1c5b9c567aa7ef071befc15a
