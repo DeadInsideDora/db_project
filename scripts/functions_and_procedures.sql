@@ -180,14 +180,15 @@ DECLARE
 v_candidate_names VARCHAR[];
 v_new_statuses VARCHAR[];
 v_trial_id INT;
+v_rec record;
 BEGIN
     -- Создаем временные массивы для хранения данных
     v_candidate_names := ARRAY[];
     v_new_statuses := ARRAY[];
 
     -- Заполняем временные массивы значениями из trial_in_process
-FOR v_rec IN (SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШЕЛ ИСПЫТАНИЕ' AS new_status, trial_id INTO v_trial_id
-             FROM trial_in_process t JOIN candidates c ON t.candidate_id = c.id)
+FOR v_rec IN SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШЕЛ ИСПЫТАНИЕ' AS new_status, trial_id INTO v_trial_id
+             FROM trial_in_process t JOIN candidates c ON t.candidate_id = c.id
     LOOP
         v_candidate_names := v_candidate_names || v_rec.full_name;
         v_new_statuses := v_new_statuses || v_rec.new_status;
