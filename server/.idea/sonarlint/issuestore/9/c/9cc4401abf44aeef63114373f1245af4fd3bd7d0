@@ -1,0 +1,23 @@
+
+`	java:S1128"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112:"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112E"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+0
+java:S1700"Rename field "server"(­«ÚÒùÿÿÿÿ
+@	java:S106"+Replace this use of System.out by a logger.(İ‰‚ø
+D
+java:S2140")Use "java.util.Random.nextInt()" instead.(Ù±¾úÿÿÿÿ
+J
+java:S1481"4Remove this unused "dataBaseHandler" local variable.(ñ²Ãç
+l
+java:S1450+"QRemove the "in" field and declare it as a local variable in the relevant methods.(ï¼Œ­ûÿÿÿÿ
+h
+java:S1450*"RRemove the "out" field and declare it as a local variable in the relevant methods.(¨¥ÑÓ
+R
+java:S18545"7Remove this useless assignment to local variable "obj".(ö¼âÍüÿÿÿÿ
+P
+java:S11611":Add the "@Override" annotation above this method signature(“–ış
+a
+java:S21479"DCombine this catch with the one at line 55, which has the same body.(ıàÑÎ8¬Á¨±Ó1
+C
+java:S14815"(Remove this unused "obj" local variable.(ö¼âÍüÿÿÿÿ
