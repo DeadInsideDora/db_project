@@ -173,6 +173,31 @@ BEGIN
     END LOOP;
 END;
 $$;
+-- при завершении испытания
+CREATE OR REPLACE FUNCTION end_trial()
+RETURNS VOID AS $$
+DECLARE
+v_candidate_names VARCHAR[];
+v_new_statuses VARCHAR[];
+v_trial_id INT;
+BEGIN
+    -- Создаем временные массивы для хранения данных
+    v_candidate_names := ARRAY[];
+    v_new_statuses := ARRAY[];
+
+    -- Заполняем временные массивы значениями из trial_in_process
+FOR v_rec IN (SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШЕЛ ИСПЫТАНИЕ' AS new_status, trial_id INTO v_trial_id
+             FROM trial_in_process t JOIN candidates c ON t.candidate_id = c.id)
+    LOOP
+        v_candidate_names := v_candidate_names || v_rec.full_name;
+        v_new_statuses := v_new_statuses || v_rec.new_status;
+    END LOOP;
+
+    -- Вызываем функцию update_candidate_status_and_history для всех записей
+UPDATE trials SET time_end = CURRENT_TIMESTAMP where id = v_trial_id;
+SELECT update_candidate_status_and_history(v_candidate_names,v_new_statuses);
+END;
+$$ LANGUAGE plpgsql;
 
 -- добавление в историю и обновление статуса
 CREATE OR REPLACE FUNCTION update_candidate_status_and_history(
@@ -268,6 +293,7 @@ CREATE OR REPLACE FUNCTION insert_candidates_into_trial_in_process(
 )
 RETURNS VOID AS $$
 BEGIN
+    UPDATE trials SET time_start = CURRENT_TIMESTAMP WHERE id = p_trials_id
     -- Вставляем подходящих кандидатов в таблицу trial_in_process
     INSERT INTO trial_in_process (tournament_id, trial_id, candidate_id)
     SELECT
