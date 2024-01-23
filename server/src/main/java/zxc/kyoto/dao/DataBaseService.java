@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class DataBaseService {
     private static DataBaseHandler databaseHandler;
 
-    public DataBaseService(DataBaseHandler databaseHandler) {
+    public static void init(DataBaseHandler databaseHandler) {
         DataBaseService.databaseHandler = databaseHandler;
     }
 
@@ -20,7 +20,7 @@ public class DataBaseService {
         PreparedStatement statement = null;
         try {
             statement =
-                    databaseHandler.getPreparedStatement("call add_candidate_and_info(?, ?, ?, ?)", false);
+                    databaseHandler.getPreparedStatement("call add_members_or_create_team(?, ?, ?, ?)", false);
             statement.setString(1, teamTitle);
             statement.setString(2, teamDescription);
             statement.setArray(3, databaseHandler.getConnection().createArrayOf("text", members));
@@ -102,12 +102,12 @@ public class DataBaseService {
         return true;
     }
 
-    public static boolean saveInteraction( String[] actors, String groupDescription, String interaction, String startTimestamp, String endTimestamp) throws SQLException {
+    public static boolean saveInteraction(String[] actors, String groupDescription, String interaction, String startTimestamp, String endTimestamp) throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
                     databaseHandler.getPreparedStatement("call add_interaction_group(?, ?, ?, ?, ?)", false);
-            statement.setArray(1, databaseHandler.getConnection().createArrayOf("text", actors) );
+            statement.setArray(1, databaseHandler.getConnection().createArrayOf("text", actors));
             statement.setString(2, groupDescription);
             statement.setString(3, interaction);
             statement.setString(4, startTimestamp);
@@ -120,5 +120,51 @@ public class DataBaseService {
         }
         return true;
     }
+
+    public static boolean end_trial() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select end_trial()", false);
+            ResultSet resultSet = statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+        return true;
+    }
+
+    public static boolean startTrial(String trialTitle) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select insert_candidates_into_trial_in_process(?)", false);
+            statement.setString(1, trialTitle);
+            ResultSet resultSet = statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+        return true;
+    }
+
+    public static boolean kickCandidate(String[] candidates, String[] newStatuses) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select update_candidate_status_and_history(?, ?)", false);
+            statement.setArray(1, databaseHandler.getConnection().createArrayOf("text", candidates));
+            statement.setArray(2, databaseHandler.getConnection().createArrayOf("text", newStatuses));
+            ResultSet resultSet = statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+        return true;
+    }
+
 
 }

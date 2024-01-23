@@ -1,5 +1,6 @@
 package zxc.kyoto.server;
 
+import zxc.kyoto.dao.DataBaseService;
 import zxc.kyoto.dao.UsersService;
 import zxc.kyoto.entity.Request;
 import zxc.kyoto.util.Config;
@@ -31,7 +32,7 @@ public class Server {
             }
         }
         Config config = new Config(Paths.get("config.properties"));
-        DataBaseHandler dataBaseHandler = new DataBaseHandler(config);
+        DataBaseService.init(new DataBaseHandler(config));
         UsersService.users.put("admin", new User("admin", "admin", ADMIN));
         while (true) {
             new ClientHandler(server.accept()).start();

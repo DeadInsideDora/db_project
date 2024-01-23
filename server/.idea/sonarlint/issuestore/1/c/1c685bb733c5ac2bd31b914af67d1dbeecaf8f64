@@ -1,5 +1,6 @@
 
 x
-java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(‹Ö¾Èøÿÿÿÿ8ùÛ¶ÁÓ1
+java:S1149
+"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(‹Ö¾Èøÿÿÿÿ8ùÛ¶ÁÓ1
 V
-java:S1118":Add a private constructor to hide the implicit public one.(ÀŞß18ùÛ¶ÁÓ1
+java:S1118":Add a private constructor to hide the implicit public one.(ÀŞß18ùÛ¶ÁÓ1

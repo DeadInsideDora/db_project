@@ -1,10 +1,7 @@
 package zxc.kyoto.server;
 
 import zxc.kyoto.entity.Request;
-import zxc.kyoto.handlers.AuthorizationHandler;
-import zxc.kyoto.handlers.CandidateCreateHandler;
-import zxc.kyoto.handlers.Handler;
-import zxc.kyoto.handlers.RegisterHandler;
+import zxc.kyoto.handlers.*;
 
 import java.util.Hashtable;
 
@@ -16,6 +13,8 @@ public final class Module {
         handlers.put("auth", new AuthorizationHandler());
         handlers.put("reg", new RegisterHandler());
         handlers.put("candidate_add", new CandidateCreateHandler());
+        handlers.put("trial_add", new TrialAddHandler());
+        handlers.put("hunter_add", new HunterAddHandler());
     }
 
     public static String handle(Request request) {

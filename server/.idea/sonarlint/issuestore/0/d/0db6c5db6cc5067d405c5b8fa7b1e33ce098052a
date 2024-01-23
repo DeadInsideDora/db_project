@@ -1,18 +1,23 @@
 
-3
-java:S1118"Hide this public constructor.(ÙÀıÁ
-B
-java:S3010",Remove this assignment of "databaseHandler".(ÈåÂÂ
-D
-java:S1481".Remove this unused "resultSet" local variable.(„‡–
-D
-java:S1481-".Remove this unused "resultSet" local variable.(„‡–
-c	java:S1006"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ¿˜
-D
-java:S1481?".Remove this unused "resultSet" local variable.(„‡–
-D
-java:S1481O".Remove this unused "resultSet" local variable.(„‡–
-D
-java:S1481`".Remove this unused "resultSet" local variable.(„‡–
-D
-java:S1481s".Remove this unused "resultSet" local variable.(„‡–
+\
+java:S1118":Add a private constructor to hide the implicit public one.(ÊïÊçÿÿÿÿÿ8Ù¾×ÄÓ1
+K
+java:S1481".Remove this unused "resultSet" local variable.(„‡–8Ü¾×ÄÓ1
+K
+java:S1481-".Remove this unused "resultSet" local variable.(„‡–8Ş¾×ÄÓ1
+j	java:S1006"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ¿˜8Ş¾×ÄÓ1
+K
+java:S1481?".Remove this unused "resultSet" local variable.(„‡–8ß¾×ÄÓ1
+K
+java:S1481O".Remove this unused "resultSet" local variable.(„‡–8á¾×ÄÓ1
+K
+java:S1481`".Remove this unused "resultSet" local variable.(„‡–8â¾×ÄÓ1
+K
+java:S1481s".Remove this unused "resultSet" local variable.(„‡–8ã¾×ÄÓ1
+j	java:S100|"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×í«8ã¾×ÄÓ1
+L
+java:S1481".Remove this unused "resultSet" local variable.(„‡–8ä¾×ÄÓ1
+L
+java:S1481".Remove this unused "resultSet" local variable.(„‡–8ä¾×ÄÓ1
+L
+java:S1481 ".Remove this unused "resultSet" local variable.(„‡–8æ¾×ÄÓ1

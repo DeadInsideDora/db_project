@@ -43,3 +43,7 @@ a
 1src/main/java/zxc/kyoto/util/DataBaseHandler.java,4/e/4e0331d9ad6b07425bf3b5a2213fdb86986af523
 W
 'src/main/java/zxc/kyoto/util/Roles.java,9/7/97edab6ea39b7e9e1c5b9c567aa7ef071befc15a
+e
+5src/main/java/zxc/kyoto/handlers/TrialAddHandler.java,e/3/e367febb65924f0fec93da5a7957961392dc8bc4
+f
+6src/main/java/zxc/kyoto/handlers/HunterAddHandler.java,0/4/0446627c85765cc4a190c9fca049139ed2e47045

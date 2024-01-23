@@ -17,3 +17,6 @@ _
 +src/main/java/zxc/kyoto/entity/Request.java,0/5/05955df09650fe2e3462e0faaa74984a9133fb52
 W
 'src/main/java/zxc/kyoto/util/Roles.java,9/7/97edab6ea39b7e9e1c5b9c567aa7ef071befc15a
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302

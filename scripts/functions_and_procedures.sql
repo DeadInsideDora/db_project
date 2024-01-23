@@ -288,12 +288,28 @@ $$ LANGUAGE plpgsql;
 
 -- добавление кондидатов в триал ин процесс
 CREATE OR REPLACE FUNCTION insert_candidates_into_trial_in_process(
-    p_tournament_id INT,
-    p_trials_id INT
+    trial_title VARCHAR
 )
 RETURNS VOID AS $$
+DECLARE
+    p_tournament_id INT;
+    p_trials_id INT;
 BEGIN
-    UPDATE trials SET time_start = CURRENT_TIMESTAMP WHERE id = p_trials_id
+    SELECT id INTO p_tournament_id
+    FROM tournament
+    WHERE time_start <= CURRENT_TIMESTAMP
+    AND time_end > CURRENT_TIMESTAMP
+    LIMIT 1;
+
+    SELECT t.id INTO p_trials_id
+    FROM trials as t
+    JOIN trials_in_group AS tig ON tig.trials_id = t.id
+    JOIN tournament as trn ON trn.trials_group_id = tig.trials_group
+    where trn.id = p_tournament_id
+    and t.title = trial_title
+    limit 1;
+
+    UPDATE trials SET time_start = CURRENT_TIMESTAMP WHERE id = p_trials_id;
     -- Вставляем подходящих кандидатов в таблицу trial_in_process
     INSERT INTO trial_in_process (tournament_id, trial_id, candidate_id)
     SELECT
