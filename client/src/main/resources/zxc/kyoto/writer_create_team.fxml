@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WriterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="zxc.kyoto.controllers.AddToTeamController">
     <children>
         <AnchorPane prefHeight="68.0" prefWidth="600.0" style="-fx-border-color: #000000;">
             <children>
@@ -24,8 +24,8 @@
                 </Label>
             </children>
         </AnchorPane>
-        <Button fx:id="creatteOrAddMemderButton" layoutX="247.0" layoutY="284.0" mnemonicParsing="false" onAction="#creatteOrAddMemder" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #000000;" text="send" textFill="WHITE" />
-        <TextField fx:id="CandidareLastName" layoutX="293.0" layoutY="227.0" promptText="last name" />
+        <Button fx:id="createOrAddMemderButton" layoutX="247.0" layoutY="284.0" mnemonicParsing="false" onAction="#addMemberToTeam" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #000000;" text="send" textFill="WHITE" />
+        <TextField fx:id="CandidateLastName" layoutX="293.0" layoutY="227.0" promptText="last name" />
         <TextField fx:id="candidateFirstName" layoutX="125.0" layoutY="227.0" promptText="first name" />
         <Label layoutX="184.0" layoutY="196.0" text="And add a member to this team:" textAlignment="CENTER">
             <font>
