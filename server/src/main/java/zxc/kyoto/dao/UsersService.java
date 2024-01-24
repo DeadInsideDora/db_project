@@ -12,9 +12,9 @@ public final class UsersService {
         return users.containsKey(username);
     }
 
-    public static boolean authorization(String username, String password, Roles role) {
+    public static boolean authorization(String username, String password) {
         if (isUserExist(username)) {
-            return users.get(username).getPassword().equals(password) && users.get(username).getRole().equals(role);
+            return users.get(username).getPassword().equals(password);
         }
         return false;
     }
@@ -23,5 +23,9 @@ public final class UsersService {
         if (isUserExist(username)) return false;
         users.put(username, new User(username, password, role));
         return true;
+    }
+
+    public static Roles getRoleByUser(String username) {
+        return users.get(username).getRole();
     }
 }
