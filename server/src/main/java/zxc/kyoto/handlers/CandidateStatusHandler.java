@@ -1,12 +1,8 @@
 package zxc.kyoto.handlers;
 
-import zxc.kyoto.dao.DataBaseService;
 import zxc.kyoto.entity.User;
 
-import java.sql.ResultSet;
-
 import static zxc.kyoto.dao.DataBaseService.getCandidateStatus;
-import static zxc.kyoto.dao.DataBaseService.kickCandidate;
 
 public class CandidateStatusHandler implements Handler {
     @Override

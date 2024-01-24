@@ -64,8 +64,8 @@ public class AuthController {
                         break;
                 }
             } catch (IllegalArgumentException | IOException e) {
+                e.printStackTrace();
                 error.setText(answer);
-                System.out.println(answer);
             }
         } else {
             error.setText("User not found.");

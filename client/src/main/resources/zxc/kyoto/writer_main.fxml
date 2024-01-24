@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="WriterController">
+            fx:controller="zxc.kyoto.controllers.WriterController">
     <children>
         <AnchorPane prefHeight="68.0" prefWidth="600.0" style="-fx-border-color: #000000;">
             <children>
@@ -28,23 +28,23 @@
             </children>
         </AnchorPane>
         <Button fx:id="createInteractionButton" layoutX="87.0" layoutY="118.0" mnemonicParsing="false" onAction="#createInteraction" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="create interaction" textFill="WHITE" />
-        <Button fx:id="cerateTeamButton" layoutX="87.0" layoutY="166.0" mnemonicParsing="false" onAction="#createTeam" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="create team" textFill="WHITE" />
+        <Button fx:id="createTeamButton" layoutX="87.0" layoutY="166.0" mnemonicParsing="false" onAction="#addToTeam" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="create team" textFill="WHITE" />
         <Label layoutX="91.0" layoutY="84.0" text="Available actions">
             <font>
                 <Font size="16.0"/>
             </font>
         </Label>
-        <Button fx:id="setStatusButton" layoutX="245.0" layoutY="336.0" mnemonicParsing="false" onAction="#setStatus" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #000000;" text="set status" textFill="WHITE" />
+        <Button fx:id="setStatusButton" layoutX="245.0" layoutY="336.0" mnemonicParsing="false" onAction="#updateCandidateState" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #000000;" text="set status" textFill="WHITE" />
         <Label layoutX="293.0" layoutY="83.0" text="Choose a trial to set the start/end time:">
             <font>
                 <Font size="15.0"/>
             </font>
         </Label>
-        <Button fx:id="setTrialStartTimeButton" layoutX="331.0" layoutY="168.0" mnemonicParsing="false" onAction="#setTrialStartTime" prefHeight="26.0" prefWidth="72.0" style="-fx-background-color: #872323;" text="start time" textFill="WHITE" />
-        <Button fx:id="setTrialEndTimeButton" layoutX="426.0" layoutY="168.0" mnemonicParsing="false" onAction="#setTrialEndTime" prefHeight="26.0" prefWidth="72.0" style="-fx-background-color: #872323;" text="end time" textFill="WHITE" />
-        <TextField layoutX="207.0" layoutY="291.0" promptText="status" />
-        <TextField layoutX="124.0" layoutY="253.0" promptText="first name" />
-        <TextField layoutX="292.0" layoutY="253.0" promptText="last name" />
+        <Button fx:id="setTrialStartTimeButton" layoutX="331.0" layoutY="168.0" mnemonicParsing="false" onAction="#startTrial" prefHeight="26.0" prefWidth="72.0" style="-fx-background-color: #872323;" text="start time" textFill="WHITE" />
+        <Button fx:id="setTrialEndTimeButton" layoutX="426.0" layoutY="168.0" mnemonicParsing="false" onAction="#endTrial" prefHeight="26.0" prefWidth="72.0" style="-fx-background-color: #872323;" text="end time" textFill="WHITE" />
+        <TextField fx:id="updStatus" layoutX="207.0" layoutY="291.0" promptText="status" />
+        <TextField fx:id="fname" layoutX="124.0" layoutY="253.0" promptText="first name" />
+        <TextField fx:id="lname" layoutX="292.0" layoutY="253.0" promptText="last name" />
         <Label layoutX="181.0" layoutY="221.0" text="Input candidate and new status:">
             <font>
                 <Font size="16.0"/>

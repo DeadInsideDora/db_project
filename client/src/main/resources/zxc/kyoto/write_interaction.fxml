@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InteractionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="zxc.kyoto.controllers.InteractionController">
    <children>
       <AnchorPane prefHeight="68.0" prefWidth="600.0" style="-fx-border-color: #000000;">
          <children>
@@ -26,7 +26,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="createInteractionButton" layoutX="221.0" layoutY="332.0" mnemonicParsing="false" onAction="#createInteraction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create interaction" textFill="WHITE" />
-      <TextField fx:id="interactiomMembers" layoutX="200.0" layoutY="139.0" promptText="fiull names" />
+      <TextField fx:id="interactiomMembers" layoutX="200.0" layoutY="139.0" promptText="fill names" />
       <Label layoutX="62.0" layoutY="99.0" text="Input  full names of all interaction members separated by commas">
          <font>
             <Font size="16.0" />
@@ -38,7 +38,7 @@
          </font>
       </Label>
       <TextField fx:id="interactionType" layoutX="200.0" layoutY="218.0" promptText="type" />
-      <DatePicker fx:id="startTome" layoutX="21.0" layoutY="274.0" />
+      <DatePicker fx:id="startTime" layoutX="21.0" layoutY="274.0" />
       <Label layoutX="68.0" layoutY="246.0" text="Set start time ">
          <font>
             <Font size="16.0" />
