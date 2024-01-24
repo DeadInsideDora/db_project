@@ -78,17 +78,23 @@ public class AdminController {
     }
 
     @FXML
-    public void addHunter(){
+    public void addHunters() throws IOException {
         Request request = new Request(UserContainer.getUser(), new String[]{"add_hunter", "name", "fam", "post"});
         String response = ClientService.service(request);
         error.setText(response);
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin_add_hunter.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     public void getHunters(){
         Request request = new Request(UserContainer.getUser(), new String[]{"list_hunters"});
         String response = ClientService.service(request);
-        error.setText(response);
+        output.setText(response);
     }
 
     @FXML

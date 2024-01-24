@@ -27,7 +27,7 @@ public class DataBaseService {
             statement.setArray(3, databaseHandler.getConnection().createArrayOf("varchar", members));
             statement.executeQuery();
         } catch (SQLException exception) {
-            if (exception.getMessage().equals("No results were returned by the query.")) return true;
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -46,7 +46,7 @@ public class DataBaseService {
             statement.setString(4, trialDescription);
             statement.executeQuery();
         } catch (SQLException exception) {
-            if (exception.getMessage().equals("No results were returned by the query.")) return true;
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -65,7 +65,7 @@ public class DataBaseService {
             statement.setArray(4, databaseHandler.getConnection().createArrayOf("int", factsWeights));
             statement.executeQuery();
         } catch (SQLException exception) {
-            if (exception.getMessage().equals("No results were returned by the query.")) return true;
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -114,7 +114,7 @@ public class DataBaseService {
             ResultSet resultSet = statement.executeQuery();
             String infoSet = "Список доступных охотников: \n";
             while (resultSet.next()) {
-                infoSet+= "- " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + " | " + resultSet.getString("post");
+                infoSet+= "- " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + " | " + resultSet.getString("post") + "\n";
             }
             return infoSet;
         } catch (SQLException exception) {
@@ -136,7 +136,7 @@ public class DataBaseService {
             statement.setTimestamp(5, endTimestamp);
             statement.executeQuery();
         } catch (SQLException exception) {
-            if (exception.getMessage().equals("No results were returned by the query.")) return true;
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -306,6 +306,7 @@ public class DataBaseService {
             statement.executeQuery();
             return true;
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
