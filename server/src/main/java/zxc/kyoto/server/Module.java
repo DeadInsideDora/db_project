@@ -17,6 +17,7 @@ public final class Module {
         handlers.put("hunter_add", new HunterAddHandler());
         handlers.put("new_tournament", new CreateTournamentHandler());
         handlers.put("info_tournament", new TournamentInfoHandler());
+        handlers.put("add_team", new AddTeam());
     }
 
     public static String handle(Request request) {

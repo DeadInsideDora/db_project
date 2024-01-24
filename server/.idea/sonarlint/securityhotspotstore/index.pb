@@ -53,3 +53,5 @@ m
 =src/main/java/zxc/kyoto/handlers/CreateTournamentHandler.java,d/d/dd6ec24e121084d73d686170f877731d707584bb
 k
 ;src/main/java/zxc/kyoto/handlers/TournamentInfoHandler.java,7/a/7a97ad0e0ec9ac5dbdef0ed81974637fe64959a5
+g
+7src/main/java/zxc/kyoto/handlers/TrialBeginHandler.java,1/a/1a582c1b1c7981cc47c3ffa2e9293cbdb8ba2f3b
