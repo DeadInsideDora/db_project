@@ -8,7 +8,7 @@ public enum Roles {
     private final String role;
 
     Roles(String role) {
-        this.role=role;
+        this.role = role;
     }
 
     public String getRole() {

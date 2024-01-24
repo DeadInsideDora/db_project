@@ -13,6 +13,4 @@ module zxc.kyoto.client {
 
     opens zxc.kyoto.client to javafx.fxml;
     exports zxc.kyoto.client;
-    exports zxc.kyoto;
-    opens zxc.kyoto to javafx.fxml;
 }
