@@ -26,8 +26,12 @@ public class AdminController {
     }
 
     @FXML
-    public void addWriter() {
-
+    public void addWriter() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin_add_writer.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -45,13 +49,21 @@ public class AdminController {
     }
 
     @FXML
-    public void addTrial() {
-
+    public void addTrial() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin_create_trial.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    public void addCandidate() {
-
+    public void addCandidate() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin_add_candidate.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
