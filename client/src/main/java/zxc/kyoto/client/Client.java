@@ -1,7 +1,5 @@
 package zxc.kyoto.client;
 
-import zxc.kyoto.entity.User;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,7 +20,15 @@ public class Client {
 
     public String sendObject(Object obj) throws IOException {
         out.writeObject(obj);
-        String resp = in.readLine();
+        StringBuilder content = new StringBuilder();
+        String line;
+
+        while ((line = in.readLine()) != null) {
+            content.append(line);
+            content.append(System.lineSeparator());
+        }
+
+        String resp = content.toString().substring(0,content.length()-1);
         return resp;
     }
 

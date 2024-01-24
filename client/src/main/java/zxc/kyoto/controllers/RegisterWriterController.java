@@ -20,7 +20,7 @@ public class RegisterWriterController {
 
     @FXML
     public void registerWriter() {
-        Request request = new Request(UserContainer.getUser(), new String[]{viewUsername.getText(), viewPassword.getText(), WRITER.getRole()});
+        Request request = new Request(UserContainer.getUser(), new String[]{"reg", viewUsername.getText(), viewPassword.getText(), WRITER.getRole()});
         String response = ClientService.service(request);
         error.setText(response);
     }

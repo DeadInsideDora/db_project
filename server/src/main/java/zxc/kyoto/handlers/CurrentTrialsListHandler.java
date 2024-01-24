@@ -3,9 +3,6 @@ package zxc.kyoto.handlers;
 import zxc.kyoto.entity.User;
 import zxc.kyoto.util.Roles;
 
-import java.sql.ResultSet;
-
-import static zxc.kyoto.dao.DataBaseService.getTournamentInfo;
 import static zxc.kyoto.dao.DataBaseService.getTrialsInTournamentList;
 
 public class CurrentTrialsListHandler implements Handler{

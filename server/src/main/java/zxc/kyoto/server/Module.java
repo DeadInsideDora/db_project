@@ -27,6 +27,7 @@ public final class Module {
         handlers.put("end_tournament", new EndTournamentHandler());
         handlers.put("stat_candidate", new CandidateStatusHandler());
         handlers.put("hist_candidate", new CandidateHistoryHandler());
+        handlers.put("list_hunters", new HuntersInfoHandler());
     }
 
     public static String handle(Request request) {

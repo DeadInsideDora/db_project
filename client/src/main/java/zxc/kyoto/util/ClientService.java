@@ -9,7 +9,8 @@ public class ClientService {
 
     public static String service(Object o) {
         try {
-            client.startConnection("127.0.0.1", 4444);
+            client.startConnection("127.0.0.1", 1337);
+            System.out.println("ping");
             return client.sendObject(o);
         } catch (IOException e) {
             e.printStackTrace();

@@ -20,7 +20,7 @@ public class AddToTeamController {
 
     @FXML
     private void addMemberToTeam(){
-        Request request = new Request(UserContainer.getUser(), new Object[]{"add_team", teamTitle.getText(), new String[]{candidateFirstName.getText() + " " + CandidateLastName.getText()}});
+        Request request = new Request(UserContainer.getUser(), new Object[]{"add_team", teamTitle.getText(), "the BOYS", new String[]{candidateFirstName.getText() + " " + CandidateLastName.getText()}});
         String response = ClientService.service(request);
         addMemberError.setText(response);
     }

@@ -78,7 +78,7 @@ public class WriterController {
 
     @FXML
     public void updateCandidateState() {
-        Request request = new Request(UserContainer.getUser(), new Object[]{new String[]{fname.getText() + " " + lname.getText()}, new String[]{updStatus.getText()}});
+        Request request = new Request(UserContainer.getUser(), new Object[]{"update_candidate", new String[]{fname.getText() + " " + lname.getText()}, new String[]{updStatus.getText()}});
         String response = ClientService.service(request);
         error.setText(response);
     }

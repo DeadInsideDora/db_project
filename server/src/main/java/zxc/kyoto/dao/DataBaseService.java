@@ -5,6 +5,7 @@ import zxc.kyoto.util.DataBaseHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 /**
  * Operates the database collection itself.
@@ -20,12 +21,13 @@ public class DataBaseService {
         PreparedStatement statement = null;
         try {
             statement =
-                    databaseHandler.getPreparedStatement("call add_members_or_create_team(?, ?, ?, ?)", false);
+                    databaseHandler.getPreparedStatement("select add_members_or_create_team(?, ?, ?)", false);
             statement.setString(1, teamTitle);
             statement.setString(2, teamDescription);
-            statement.setArray(3, databaseHandler.getConnection().createArrayOf("text", members));
-            ResultSet resultSet = statement.executeQuery();
+            statement.setArray(3, databaseHandler.getConnection().createArrayOf("varchar", members));
+            statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -38,12 +40,13 @@ public class DataBaseService {
         try {
             statement =
                     databaseHandler.getPreparedStatement("call add_trial_and_rules(?, ?, ?, ?)", false);
-            statement.setArray(1, databaseHandler.getConnection().createArrayOf("text", organizators));
-            statement.setArray(2, databaseHandler.getConnection().createArrayOf("text", rules));
+            statement.setArray(1, databaseHandler.getConnection().createArrayOf("varchar", organizators));
+            statement.setArray(2, databaseHandler.getConnection().createArrayOf("varchar", rules));
             statement.setString(3, trialName);
             statement.setString(4, trialDescription);
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -58,10 +61,11 @@ public class DataBaseService {
                     databaseHandler.getPreparedStatement("call add_candidate_and_info(?, ?, ?, ?)", false);
             statement.setString(1, firstName);
             statement.setString(2, lastName);
-            statement.setArray(3, databaseHandler.getConnection().createArrayOf("text", facts));
-            statement.setArray(4, databaseHandler.getConnection().createArrayOf("text", factsWeights));
-            ResultSet resultSet = statement.executeQuery();
+            statement.setArray(3, databaseHandler.getConnection().createArrayOf("varchar", facts));
+            statement.setArray(4, databaseHandler.getConnection().createArrayOf("int", factsWeights));
+            statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -74,9 +78,9 @@ public class DataBaseService {
         try {
             statement =
                     databaseHandler.getPreparedStatement("select create_tournament(?, ?)", false);
-            statement.setArray(1, databaseHandler.getConnection().createArrayOf("text", trialsInTournament));
+            statement.setArray(1, databaseHandler.getConnection().createArrayOf("varchar", trialsInTournament));
             statement.setString(2, trialsGroupTitle);
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeQuery();
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -93,7 +97,7 @@ public class DataBaseService {
             statement.setString(1, firstName);
             statement.setString(2, lastName);
             statement.setString(3, post);
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeQuery();
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -102,18 +106,37 @@ public class DataBaseService {
         return true;
     }
 
-    public static boolean saveInteraction(String[] actors, String groupDescription, String interaction, String startTimestamp, String endTimestamp) throws SQLException {
+    public static String getHuntersList() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select * from hunters_guild", false);
+            ResultSet resultSet = statement.executeQuery();
+            String infoSet = "Список доступных охотников: \n";
+            while (resultSet.next()) {
+                infoSet+= "- " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + " | " + resultSet.getString("post");
+            }
+            return infoSet;
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
+
+    public static boolean saveInteraction(String[] actors, String groupDescription, String interaction, Timestamp startTimestamp, Timestamp endTimestamp) throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
                     databaseHandler.getPreparedStatement("call add_interaction_group(?, ?, ?, ?, ?)", false);
-            statement.setArray(1, databaseHandler.getConnection().createArrayOf("text", actors));
+            statement.setArray(1, databaseHandler.getConnection().createArrayOf("varchar", actors));
             statement.setString(2, groupDescription);
             statement.setString(3, interaction);
-            statement.setString(4, startTimestamp);
-            statement.setString(5, endTimestamp);
-            ResultSet resultSet = statement.executeQuery();
+            statement.setTimestamp(4, startTimestamp);
+            statement.setTimestamp(5, endTimestamp);
+            statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -126,7 +149,7 @@ public class DataBaseService {
         try {
             statement =
                     databaseHandler.getPreparedStatement("select end_trial()", false);
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeQuery();
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -141,7 +164,7 @@ public class DataBaseService {
             statement =
                     databaseHandler.getPreparedStatement("select insert_candidates_into_trial_in_process(?)", false);
             statement.setString(1, trialTitle);
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeQuery();
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -155,9 +178,9 @@ public class DataBaseService {
         try {
             statement =
                     databaseHandler.getPreparedStatement("select update_candidate_status_and_history(?, ?)", false);
-            statement.setArray(1, databaseHandler.getConnection().createArrayOf("text", candidates));
-            statement.setArray(2, databaseHandler.getConnection().createArrayOf("text", newStatuses));
-            ResultSet resultSet = statement.executeQuery();
+            statement.setArray(1, databaseHandler.getConnection().createArrayOf("varchar", candidates));
+            statement.setArray(2, databaseHandler.getConnection().createArrayOf("varchar", newStatuses));
+            statement.executeQuery();
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -170,24 +193,26 @@ public class DataBaseService {
         PreparedStatement statement = null;
         try {
             statement =
-                    databaseHandler.getPreparedStatement("select tg.description, first_name, last_name, tms.title, t.title, t.description, s.description\n" +
+                    databaseHandler.getPreparedStatement("select tg.description, first_name, last_name, teams.title, t.title, t.description, s.description\n" +
                             "from tournament\n" +
-                            "join trials_group tg on tg.id = tournament.trials_group_id" +
-                            "join trials_history th on tournament.id = th.tournament_id\n" +
-                            "join trials t on t.id = th.trial_id\n" +
-                            "join candidates c on c.id = th.candidate_id\n" +
-                            "join status s on s.id = th.trial_status\n" +
-                            "left join teams tms on tms.id = c.team_id", false);
+                            "join trials_group tg on tg.id = tournament.trials_group_id\n" +
+                            "join trials_history trh on tournament.id = trh.tournament_id\n" +
+                            "join trials t on t.id = trh.trial_id\n" +
+                            "join candidates c on c.id = trh.candidate_id\n" +
+                            "join status s on s.id = trh.trial_status\n" +
+                            "left join teams on teams.id = c.team_id", false);
             ResultSet resultSet = statement.executeQuery();
             String infoSet = "Сводка по турниру:\n\n";
             while (resultSet.next()) {
-                String team = resultSet.getString("tms.title") == null ? "Без команды" : resultSet.getString("tms.title");
-                infoSet+= "Турнир: " + resultSet.getString("tg.description") + "\n " +
-                        "Имя участника: " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + "\n" +
+
+                String team = resultSet.getString(4);
+                team = team == null ? "Без команды" : team;
+                infoSet+= "Турнир: " + resultSet.getString(1) + "\n " +
+                        "Имя участника: " + resultSet.getString(2) + " " + resultSet.getString(3) + "\n" +
                         "Команда: " + team + "\n" +
-                        "Испытание: " + resultSet.getString("t.title") + "\n" +
-                        "\tОписание: " + resultSet.getString("t.description") + "\n" +
-                        "Статус: " + resultSet.getString("s.description") + "\n\n";
+                        "Испытание: " + resultSet.getString(5) + "\n" +
+                        "\tОписание: " + resultSet.getString(6) + "\n" +
+                        "Статус: " + resultSet.getString(7) + "\n\n";
             }
 
             return infoSet;
@@ -235,7 +260,7 @@ public class DataBaseService {
             String infoSet = "Сводка по участникам.\n\n";
             while (resultSet.next()) {
                 infoSet += "Имя участника: " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + "\n";
-                String team = resultSet.getString("tms.title") == null ? "Без команды" : resultSet.getString("tms.title");
+                String team = resultSet.getString("title") == null ? "Без команды" : resultSet.getString("title");
                 infoSet+="\tКоманда: " + team + "\n";
             }
             return infoSet;
@@ -263,7 +288,6 @@ public class DataBaseService {
             while (resultSet.next()) {
                 infoSet += resultSet.getString("title") + "\n";
             }
-
             return infoSet;
         } catch (SQLException exception) {
             throw new SQLException(exception);
@@ -327,9 +351,9 @@ public class DataBaseService {
             statement =
                     databaseHandler.getPreparedStatement("select first_name, last_name, s.description, title\n" +
                             "from candidates\n" +
-                            "join trials_history th on candidates.id = th.candidate_id\n" +
-                            "join status s on th.trial_status = s.id\n" +
-                            "join trials t on th.trial_id = t.id\n" +
+                            "join trials_history trh on candidates.id = trh.candidate_id\n" +
+                            "join status s on trh.trial_status = s.id\n" +
+                            "join trials t on trh.trial_id = t.id\n" +
                             "where first_name = ?\n" +
                             "and last_name = ?", false);
             statement.setString(1, firstName);
