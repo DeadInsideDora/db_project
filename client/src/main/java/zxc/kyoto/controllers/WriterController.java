@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import zxc.kyoto.HelloApplication;
 import zxc.kyoto.entity.Request;
 import zxc.kyoto.util.ClientService;
+import zxc.kyoto.util.StageContainer;
 import zxc.kyoto.util.UserContainer;
 
 import java.io.IOException;
@@ -81,5 +82,16 @@ public class WriterController {
         Request request = new Request(UserContainer.getUser(), new Object[]{"update_candidate", new String[]{fname.getText() + " " + lname.getText()}, new String[]{updStatus.getText()}});
         String response = ClientService.service(request);
         error.setText(response);
+    }
+
+    @FXML
+    public void logOut() throws IOException {
+        UserContainer.setUser(null);
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view_login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = StageContainer.mainStage;
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
     }
 }

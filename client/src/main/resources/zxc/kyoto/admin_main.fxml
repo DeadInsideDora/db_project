@@ -22,7 +22,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-            <Button fx:id="logoutButton" layoutX="519.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #000000;" text="log out" textFill="WHITE" />
+            <Button fx:id="logoutButton" layoutX="519.0" layoutY="21.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #000000;" text="log out" textFill="WHITE" />
             </children>
         </AnchorPane>
         <TextArea fx:id="output" layoutX="291.0" layoutY="96.0" prefHeight="268.0" prefWidth="269.0" style="-fx-border-color: #000000; -fx-border-radius: 3;" />
