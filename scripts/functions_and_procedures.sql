@@ -179,15 +179,14 @@ RETURNS VOID AS $$
 DECLARE
 v_candidate_names VARCHAR[];
 v_new_statuses VARCHAR[];
-v_trial_id INT;
 v_rec record;
 BEGIN
     -- Создаем временные массивы для хранения данных
-    v_candidate_names := ARRAY[]ARRAY[]::VARCHAR[];
+    v_candidate_names := ARRAY[]::VARCHAR[];
     v_new_statuses := ARRAY[]::VARCHAR[];
 
     -- Заполняем временные массивы значениями из trial_in_process
-FOR v_rec IN SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШЕЛ ИСПЫТАНИЕ' AS new_status, trial_id INTO v_trial_id
+FOR v_rec IN SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШЕЛ ИСПЫТАНИЕ' AS new_status, trial_id as v_trial_id
              FROM trial_in_process t JOIN candidates c ON t.candidate_id = c.id
     LOOP
         v_candidate_names := v_candidate_names || v_rec.full_name;
@@ -195,7 +194,7 @@ FOR v_rec IN SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШ
     END LOOP;
 
     -- Вызываем функцию update_candidate_status_and_history для всех записей
-UPDATE trials SET time_end = CURRENT_TIMESTAMP where id = v_trial_id;
+UPDATE trials SET time_end = CURRENT_TIMESTAMP where id = v_rec.v_trial_id;
 SELECT update_candidate_status_and_history(v_candidate_names,v_new_statuses);
 END;
 $$ LANGUAGE plpgsql;
