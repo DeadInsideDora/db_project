@@ -53,7 +53,7 @@ CREATE TABLE hunters_guild (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(25) NOT NULL,
     last_name VARCHAR(25) NOT NULL,
-    post guild_post NOT NULL
+    post VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE organizators (
