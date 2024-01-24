@@ -23,6 +23,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <Button fx:id="logoutButton" layoutX="513.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #000000;" text="log out" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Button fx:id="createInteractionButton" layoutX="221.0" layoutY="362.0" mnemonicParsing="false" onAction="#createInteraction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create interaction" textFill="WHITE" />

@@ -22,6 +22,7 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
+            <Button fx:id="logoutButton" layoutX="509.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #000000;" text="log out" textFill="WHITE" />
             </children>
         </AnchorPane>
         <Button fx:id="createOrAddMemderButton" layoutX="247.0" layoutY="284.0" mnemonicParsing="false" onAction="#addMemberToTeam" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #000000;" text="send" textFill="WHITE" />
