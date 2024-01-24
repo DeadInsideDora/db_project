@@ -74,6 +74,6 @@ public class AuthController {
 
     @FXML
     protected void register() {
-        ClientService.service(new Request(null, new String[]{"reg", username.getText(), password.getText(), VIEWER.getRole()}));
+        error.setText(ClientService.service(new Request(null, new String[]{"reg", username.getText(), password.getText(), VIEWER.getRole()})));
     }
 }

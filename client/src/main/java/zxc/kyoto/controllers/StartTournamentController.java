@@ -14,13 +14,15 @@ public class StartTournamentController {
     private TextField secondTrial;
     @FXML
     private TextField ThirdTrial;
+    @FXML
+    private TextField descriptionGpup;
 
     @FXML
     private Label error;
 
     @FXML
     public void createNewTournament() {
-        Request request = new Request(UserContainer.getUser(), new Object[]{"new_tournament", new String[]{firstTrial.getText(), secondTrial.getText(), ThirdTrial.getText()}, });
+        Request request = new Request(UserContainer.getUser(), new Object[]{"new_tournament", new String[]{firstTrial.getText(), secondTrial.getText(), ThirdTrial.getText()}, descriptionGpup.getText() });
         String response = ClientService.service(request);
         error.setText(response);
     }

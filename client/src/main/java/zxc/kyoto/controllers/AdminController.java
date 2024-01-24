@@ -3,6 +3,7 @@ package zxc.kyoto.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import zxc.kyoto.HelloApplication;
@@ -15,6 +16,8 @@ import java.io.IOException;
 public class AdminController {
     @FXML
     private TextArea output;
+    @FXML
+    private Label error;
 
     @FXML
     public void startTournament() throws IOException {
@@ -68,7 +71,9 @@ public class AdminController {
 
     @FXML
     public void endTournament() {
-
+        Request request = new Request(UserContainer.getUser(), new String[]{"end_tournament"});
+        String response = ClientService.service(request);
+        error.setText(response);
     }
 
 }
