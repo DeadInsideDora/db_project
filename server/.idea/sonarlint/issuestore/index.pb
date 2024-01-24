@@ -55,3 +55,15 @@ k
 ;src/main/java/zxc/kyoto/handlers/TournamentInfoHandler.java,7/a/7a97ad0e0ec9ac5dbdef0ed81974637fe64959a5
 g
 7src/main/java/zxc/kyoto/handlers/TrialBeginHandler.java,1/a/1a582c1b1c7981cc47c3ffa2e9293cbdb8ba2f3b
+^
+.src/main/java/zxc/kyoto/handlers/TrialEnd.java,5/a/5a2affbcadfe1484b275d09c33f754d7203e8d56
+e
+5src/main/java/zxc/kyoto/handlers/TrialEndHandler.java,1/b/1beac24b3a0bf97a50f80d8126a4a91632cf508b
+t
+Dsrc/main/java/zxc/kyoto/handlers/UpdateCandidateProgressHandler.java,0/c/0c7e77ae2c377da3af215daba6a956bf00e55cd4
+h
+8src/main/java/zxc/kyoto/handlers/InteractionHandler.java,c/4/c498b0ed4f59d7df4c5c2d9e0e84fe75605b6c15
+o
+?src/main/java/zxc/kyoto/handlers/TrialInProcessInfoHandler.java,b/d/bdb2ff7f5cfa928038ef0505b14ce6cfe23edcf2
+n
+>src/main/java/zxc/kyoto/handlers/CurrentTrialsListHandler.java,c/3/c326d6062901024a65cd1b9b468bfc37b954f417

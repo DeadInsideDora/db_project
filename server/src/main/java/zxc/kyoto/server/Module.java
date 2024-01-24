@@ -12,12 +12,18 @@ public final class Module {
     public static void init() {
         handlers.put("auth", new AuthorizationHandler());
         handlers.put("reg", new RegisterHandler());
-        handlers.put("candidate_add", new CandidateCreateHandler());
-        handlers.put("trial_add", new TrialAddHandler());
-        handlers.put("hunter_add", new HunterAddHandler());
+        handlers.put("add_candidate", new CandidateCreateHandler());
+        handlers.put("add_trial", new TrialAddHandler());
+        handlers.put("add_hunter", new HunterAddHandler());
         handlers.put("new_tournament", new CreateTournamentHandler());
         handlers.put("info_tournament", new TournamentInfoHandler());
+        handlers.put("info_trial", new TrialInProcessInfoHandler());
         handlers.put("add_team", new AddTeam());
+        handlers.put("start_trial", new TrialBeginHandler());
+        handlers.put("end_trial", new TrialEndHandler());
+        handlers.put("update_candidate", new UpdateCandidateProgressHandler());
+        handlers.put("add_interaction", new InteractionHandler());
+        handlers.put("trials_list", new CurrentTrialsListHandler());
     }
 
     public static String handle(Request request) {

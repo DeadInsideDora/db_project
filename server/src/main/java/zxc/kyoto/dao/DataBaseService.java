@@ -170,8 +170,9 @@ public class DataBaseService {
         PreparedStatement statement = null;
         try {
             statement =
-                    databaseHandler.getPreparedStatement("select tournament_id, first_name, last_name, tms.title, t.title, t.description, s.description\n" +
+                    databaseHandler.getPreparedStatement("select tg.description, first_name, last_name, tms.title, t.title, t.description, s.description\n" +
                             "from tournament\n" +
+                            "join trials_group tg on tg.id = tournament.trials_group_id" +
                             "join trials_history th on tournament.id = th.tournament_id\n" +
                             "join trials t on t.id = th.trial_id\n" +
                             "join candidates c on c.id = th.candidate_id\n" +
@@ -184,5 +185,60 @@ public class DataBaseService {
             databaseHandler.closePreparedStatement(statement);
         }
     }
+
+    public static ResultSet getTrialInProcessInfo() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select title, description, first_name, last_name, post\n" +
+                            "        from trial_in_process\n" +
+                            "        join trials t on t.id = trial_in_process.trial_id\n" +
+                            "        join organizators o on t.id = o.trial_id\n" +
+                            "        join hunters_guild hg on hg.id = o.hunter_id\n" +
+                            "        limit 1", false);
+            return statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
+
+    public static ResultSet getCandidatesInProcessInfo() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select first_name, last_name, title\n" +
+                            "from trial_in_process\n" +
+                            "join candidates c on c.id = trial_in_process.candidate_id\n" +
+                            "left join teams t on t.id = c.team_id", false);
+            return statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
+
+    public static ResultSet getTrialsInTournamentList() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select title\n" +
+                            "    from tournament\n" +
+                            "    join trials_group tg on tg.id = tournament.trials_group_id\n" +
+                            "    join trials_in_group tig on tg.id = tig.trials_group\n" +
+                            "    join trials t on tig.trials_id = t.id\n" +
+                            "    where tournament.time_start <= current_timestamp\n" +
+                            "    and tournament.time_end > current_timestamp", false);
+            return statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
+
+
 
 }
