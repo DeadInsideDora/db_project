@@ -183,8 +183,8 @@ v_trial_id INT;
 v_rec record;
 BEGIN
     -- Создаем временные массивы для хранения данных
-    v_candidate_names := ARRAY[];
-    v_new_statuses := ARRAY[];
+    v_candidate_names := ARRAY[]ARRAY[]::VARCHAR[];
+    v_new_statuses := ARRAY[]::VARCHAR[];
 
     -- Заполняем временные массивы значениями из trial_in_process
 FOR v_rec IN SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШЕЛ ИСПЫТАНИЕ' AS new_status, trial_id INTO v_trial_id
