@@ -22,7 +22,6 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="logoutButton" layoutX="520.0" layoutY="24.0" mnemonicParsing="false" style="-fx-background-color: #000000;" text="log out" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Button fx:id="createITrialButton" layoutX="220.0" layoutY="357.0" mnemonicParsing="false" onAction="#createTrial" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create trial" textFill="WHITE" />

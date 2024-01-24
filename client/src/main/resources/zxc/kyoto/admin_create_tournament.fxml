@@ -22,7 +22,6 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-            <Button fx:id="logoutButtom" layoutX="514.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-color: #000000;" text="log out" textFill="WHITE" />
             </children>
         </AnchorPane>
         <Label layoutX="203.0" layoutY="94.0" text="Choose trials for tournament ">
