@@ -15,7 +15,7 @@
          <children>
             <ImageView fitHeight="43.0" fitWidth="83.0" layoutX="44.0" layoutY="14.0">
                <image>
-                  <Image url="@../../../../Downloads/hunter_symbol.png" />
+                  <Image url="@pic/hunter_symbol.png" />
                </image>
             </ImageView>
             <Label layoutX="169.0" layoutY="21.0" text="Registration">
