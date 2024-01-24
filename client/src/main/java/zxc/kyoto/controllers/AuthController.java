@@ -33,7 +33,7 @@ public class AuthController {
         String log = username.getText();
         String pass = password.getText();
         String answer = ClientService.service(new Request(null, new String[]{"auth", log, pass}));
-        if (answer != "Fail") {
+        if (!answer.equals("Fail")) {
             try {
                 User user = new User(log, pass, Roles.getRoleByStr(answer));
                 UserContainer.setUser(user);
@@ -41,7 +41,7 @@ public class AuthController {
                     case VIEWER:
                         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view_main.fxml"));
                         Stage stage = StageContainer.mainStage;
-                        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+                        Scene scene = new Scene(fxmlLoader.load());
                         stage.setTitle("Viewer");
                         stage.setScene(scene);
                         stage.show();
@@ -49,7 +49,7 @@ public class AuthController {
                     case WRITER:
                         fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("writer_main.fxml"));
                         stage = StageContainer.mainStage;
-                        scene = new Scene(fxmlLoader.load(), 320, 240);
+                        scene = new Scene(fxmlLoader.load());
                         stage.setTitle("Writer");
                         stage.setScene(scene);
                         stage.show();
@@ -57,7 +57,7 @@ public class AuthController {
                     case ADMIN:
                         fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("admin_main.fxml"));
                         stage = StageContainer.mainStage;
-                        scene = new Scene(fxmlLoader.load(), 320, 240);
+                        scene = new Scene(fxmlLoader.load());
                         stage.setTitle("Admin");
                         stage.setScene(scene);
                         stage.show();

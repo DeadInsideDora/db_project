@@ -17,7 +17,9 @@ public class ViewerController {
 
     @FXML
     public void getCandidateHistory() {
-
+        Request request = new Request(UserContainer.getUser(), new String[]{"hist_candidate", candidateFirstName.getText(), candidateLastName.getText()});
+        String response = ClientService.service(request);
+        output.setText(response);
     }
 
     @FXML

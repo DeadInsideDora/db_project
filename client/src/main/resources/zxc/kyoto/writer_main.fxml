@@ -9,18 +9,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WriterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="WriterController">
     <children>
         <AnchorPane prefHeight="68.0" prefWidth="600.0" style="-fx-border-color: #000000;">
             <children>
                 <ImageView fitHeight="43.0" fitWidth="83.0" layoutX="44.0" layoutY="14.0">
                     <image>
-                        <Image url="@pic/hunter_symbol.png" />
+                        <Image url="@pic/hunter_symbol.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="173.0" layoutY="20.0" text="Writer page">
                     <font>
-                        <Font size="24.0" />
+                        <Font size="24.0"/>
                     </font>
                 </Label>
             </children>
@@ -29,13 +31,13 @@
         <Button fx:id="cerateTeamButton" layoutX="87.0" layoutY="166.0" mnemonicParsing="false" onAction="#createTeam" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="create team" textFill="WHITE" />
         <Label layoutX="91.0" layoutY="84.0" text="Available actions">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Label>
         <Button fx:id="setStatusButton" layoutX="245.0" layoutY="336.0" mnemonicParsing="false" onAction="#setStatus" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #000000;" text="set status" textFill="WHITE" />
         <Label layoutX="293.0" layoutY="83.0" text="Choose a trial to set the start/end time:">
             <font>
-                <Font size="15.0" />
+                <Font size="15.0"/>
             </font>
         </Label>
         <Button fx:id="setTrialStartTimeButton" layoutX="331.0" layoutY="168.0" mnemonicParsing="false" onAction="#setTrialStartTime" prefHeight="26.0" prefWidth="72.0" style="-fx-background-color: #872323;" text="start time" textFill="WHITE" />
@@ -45,7 +47,7 @@
         <TextField layoutX="292.0" layoutY="253.0" promptText="last name" />
         <Label layoutX="181.0" layoutY="221.0" text="Input candidate and new status:">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Label>
       <TextField fx:id="activateTrial" layoutX="333.0" layoutY="120.0" />
