@@ -37,7 +37,8 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="loginButton" layoutX="271.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="59.0" style="-fx-background-color: #000000;" text="login" textAlignment="CENTER" textFill="WHITE" />
-      <Button fx:id="registerButton" layoutX="271.0" layoutY="293.0" mnemonicParsing="false" onAction="#register" style="-fx-background-color: #000000;" text="register" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="loginButton" layoutX="201.0" layoutY="301.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="59.0" style="-fx-background-color: #000000;" text="login" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="registerButton" layoutX="340.0" layoutY="301.0" mnemonicParsing="false" onAction="#register" style="-fx-background-color: #000000;" text="register" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="128.0" layoutY="248.0" prefHeight="29.0" prefWidth="346.0" />
    </children>
 </AnchorPane>
