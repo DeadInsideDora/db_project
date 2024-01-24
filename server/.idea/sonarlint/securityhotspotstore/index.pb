@@ -47,3 +47,9 @@ e
 5src/main/java/zxc/kyoto/handlers/TrialAddHandler.java,e/3/e367febb65924f0fec93da5a7957961392dc8bc4
 f
 6src/main/java/zxc/kyoto/handlers/HunterAddHandler.java,0/4/0446627c85765cc4a190c9fca049139ed2e47045
+]
+-src/main/java/zxc/kyoto/handlers/AddTeam.java,d/1/d1cbaf16e14f624d7e2dd6c3e9326c173e9f8d11
+m
+=src/main/java/zxc/kyoto/handlers/CreateTournamentHandler.java,d/d/dd6ec24e121084d73d686170f877731d707584bb
+k
+;src/main/java/zxc/kyoto/handlers/TournamentInfoHandler.java,7/a/7a97ad0e0ec9ac5dbdef0ed81974637fe64959a5

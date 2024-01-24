@@ -166,5 +166,23 @@ public class DataBaseService {
         return true;
     }
 
+    public static ResultSet getTournamentInfo() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select tournament_id, first_name, last_name, tms.title, t.title, t.description, s.description\n" +
+                            "from tournament\n" +
+                            "join trials_history th on tournament.id = th.tournament_id\n" +
+                            "join trials t on t.id = th.trial_id\n" +
+                            "join candidates c on c.id = th.candidate_id\n" +
+                            "join status s on s.id = th.trial_status\n" +
+                            "left join teams tms on tms.id = c.team_id", false);
+            return statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
 
 }
