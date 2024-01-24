@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 public final class Module {
 
-    private static Hashtable<String, Handler> handlers;
+    private static Hashtable<String, Handler> handlers = new Hashtable<>();
 
     public static void init() {
         handlers.put("auth", new AuthorizationHandler());

@@ -34,10 +34,10 @@ public class AuthController {
         String pass = password.getText();
         String answer = ClientService.service(new Request(null, new String[]{"auth", log, pass}));
         if (answer != "Fail") {
-            try{
-                User user = new User(log,pass,Roles.getRoleByStr(answer));
+            try {
+                User user = new User(log, pass, Roles.getRoleByStr(answer));
                 UserContainer.setUser(user);
-                switch (user.getRole()){
+                switch (user.getRole()) {
                     case VIEWER:
                         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view_main.fxml"));
                         Stage stage = StageContainer.mainStage;
@@ -65,6 +65,7 @@ public class AuthController {
                 }
             } catch (IllegalArgumentException | IOException e) {
                 error.setText(answer);
+                System.out.println(answer);
             }
         } else {
             error.setText("User not found.");

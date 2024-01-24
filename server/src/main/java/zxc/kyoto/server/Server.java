@@ -34,6 +34,7 @@ public class Server {
         Config config = new Config(Paths.get("config.properties"));
         DataBaseService.init(new DataBaseHandler(config));
         UsersService.users.put("admin", new User("admin", "admin", ADMIN));
+        Module.init();
         while (true) {
             new ClientHandler(server.accept()).start();
         }

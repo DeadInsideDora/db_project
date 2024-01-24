@@ -166,7 +166,7 @@ public class DataBaseService {
         return true;
     }
 
-    public static ResultSet getTournamentInfo() throws SQLException {
+    public static String getTournamentInfo() throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
@@ -178,7 +178,19 @@ public class DataBaseService {
                             "join candidates c on c.id = th.candidate_id\n" +
                             "join status s on s.id = th.trial_status\n" +
                             "left join teams tms on tms.id = c.team_id", false);
-            return statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            String infoSet = "Сводка по турниру:\n\n";
+            while (resultSet.next()) {
+                String team = resultSet.getString("tms.title") == null ? "Без команды" : resultSet.getString("tms.title");
+                infoSet+= "Турнир: " + resultSet.getString("tg.description") + "\n " +
+                        "Имя участника: " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + "\n" +
+                        "Команда: " + team + "\n" +
+                        "Испытание: " + resultSet.getString("t.title") + "\n" +
+                        "\tОписание: " + resultSet.getString("t.description") + "\n" +
+                        "Статус: " + resultSet.getString("s.description") + "\n\n";
+            }
+
+            return infoSet;
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -186,7 +198,7 @@ public class DataBaseService {
         }
     }
 
-    public static ResultSet getTrialInProcessInfo() throws SQLException {
+    public static String getTrialInProcessInfo() throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
@@ -196,7 +208,14 @@ public class DataBaseService {
                             "        join organizators o on t.id = o.trial_id\n" +
                             "        join hunters_guild hg on hg.id = o.hunter_id\n" +
                             "        limit 1", false);
-            return statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+
+            String infoSet = "Текущее испытание: " + resultSet.getString("title") + "\n" +
+                    "\tОписание: " + resultSet.getString("description") + "\n" +
+                    "Организатор: " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + "\n" +
+                    "\tДолжность: " + resultSet.getString("post") + "\n\n";
+            return infoSet;
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -204,7 +223,7 @@ public class DataBaseService {
         }
     }
 
-    public static ResultSet getCandidatesInProcessInfo() throws SQLException {
+    public static String getCandidatesInProcessInfo() throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
@@ -212,7 +231,14 @@ public class DataBaseService {
                             "from trial_in_process\n" +
                             "join candidates c on c.id = trial_in_process.candidate_id\n" +
                             "left join teams t on t.id = c.team_id", false);
-            return statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            String infoSet = "Сводка по участникам.\n\n";
+            while (resultSet.next()) {
+                infoSet += "Имя участника: " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + "\n";
+                String team = resultSet.getString("tms.title") == null ? "Без команды" : resultSet.getString("tms.title");
+                infoSet+="\tКоманда: " + team + "\n";
+            }
+            return infoSet;
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -220,7 +246,7 @@ public class DataBaseService {
         }
     }
 
-    public static ResultSet getTrialsInTournamentList() throws SQLException {
+    public static String getTrialsInTournamentList() throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
@@ -231,7 +257,14 @@ public class DataBaseService {
                             "    join trials t on tig.trials_id = t.id\n" +
                             "    where tournament.time_start <= current_timestamp\n" +
                             "    and tournament.time_end > current_timestamp", false);
-            return statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            String infoSet = "";
+
+            while (resultSet.next()) {
+                infoSet += resultSet.getString("title") + "\n";
+            }
+
+            return infoSet;
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -255,7 +288,7 @@ public class DataBaseService {
         }
     }
 
-    public static ResultSet getCandidateStatus(String firstName, String lastName) throws SQLException {
+    public static String getCandidateStatus(String firstName, String lastName) throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
@@ -268,7 +301,19 @@ public class DataBaseService {
                             "        and last_name = ?", false);
             statement.setString(1, firstName);
             statement.setString(2, lastName);
-            return statement.executeQuery();
+
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+
+            String infoSet = "Cтатус участника " + resultSet.getString("first_name") +
+                    " " + resultSet.getString("last_name") + ": " + resultSet.getString("description");
+
+            if (resultSet.getString("title") != null) {
+                infoSet += "\nСейчас проходит испытание: " + resultSet.getString("title");
+            }
+
+            return infoSet;
+
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {
@@ -276,7 +321,7 @@ public class DataBaseService {
         }
     }
 
-    public static ResultSet getHistByCandidate(String firstName, String lastName) throws SQLException {
+    public static String getHistByCandidate(String firstName, String lastName) throws SQLException {
         PreparedStatement statement = null;
         try {
             statement =
@@ -289,7 +334,13 @@ public class DataBaseService {
                             "and last_name = ?", false);
             statement.setString(1, firstName);
             statement.setString(2, lastName);
-            return statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+
+            String infoSet = "Сводка по участнику " + firstName + " " + lastName + ": \n";
+            while (resultSet.next()) {
+                infoSet += "Завершил испытание " + resultSet.getString("title") + " со статусом " + resultSet.getString("description") + "\n";
+            }
+            return infoSet;
         } catch (SQLException exception) {
             throw new SQLException(exception);
         } finally {

@@ -1,6 +1,7 @@
 package zxc.kyoto.util;
 
 import zxc.kyoto.client.Client;
+
 import java.io.IOException;
 
 public class ClientService {

@@ -14,17 +14,8 @@ public class TrialInProcessInfoHandler implements Handler {
         try {
             if (user.getRole() != Roles.ADMIN && user.getRole() != Roles.WRITER)
                 throw new IllegalArgumentException("Underprivileged");
-            ResultSet resultSet = getTrialInProcessInfo();
-            String infoSet = "Текущее испытание: " + resultSet.getString("title") + "\n" +
-                    "\tОписание: " + resultSet.getString("description") + "\n" +
-                    "Организатор: " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + "\n" +
-                    "\tДолжность: " + resultSet.getString("post") + "\n\n";
-            resultSet = getCandidatesInProcessInfo();
-            infoSet += "Сводка по участникам.\n\n";
-            while (resultSet.next()) {
-                infoSet += "Имя участника: " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") + "\n" +
-                        "\tКоманда: " + resultSet.getString("tms.title") == null ? "Без команды" : resultSet.getString("tms.title") + "\n";
-            }
+            String infoSet = getTrialInProcessInfo();
+            infoSet+=getCandidatesInProcessInfo();
             return infoSet;
         } catch (Exception e) {
             e.printStackTrace();

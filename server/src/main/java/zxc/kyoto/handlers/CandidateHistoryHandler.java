@@ -12,12 +12,7 @@ public class CandidateHistoryHandler implements Handler{
         try {
             String firstName = (String) args[1];
             String lastName = (String) args[2];
-            ResultSet resultSet = getHistByCandidate(firstName, lastName);
-            String infoSet = "Сводка по участнику " + firstName + " " + lastName + ": \n";
-            while(resultSet.next()) {
-                infoSet+= "Завершил испытание " + resultSet.getString("title") + " со статусом " + resultSet.getString("description") + "\n";
-            }
-            return infoSet;
+            return getHistByCandidate(firstName, lastName);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();

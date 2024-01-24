@@ -1,4 +1,5 @@
 package zxc.kyoto.util;
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

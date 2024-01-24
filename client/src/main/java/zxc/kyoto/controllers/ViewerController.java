@@ -16,7 +16,7 @@ public class ViewerController {
     private TextArea output;
 
     @FXML
-    public void getCandidateHistory(){
+    public void getCandidateHistory() {
 
     }
 

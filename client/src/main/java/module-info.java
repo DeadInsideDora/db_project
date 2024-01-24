@@ -1,4 +1,4 @@
-module zxc.kyoto {
+module zxc.kyoto.client {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -11,6 +11,10 @@ module zxc.kyoto {
 //    requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens zxc.kyoto to javafx;
+    opens zxc.kyoto.client to javafx.fxml;
+    exports zxc.kyoto.client;
+    opens zxc.kyoto.controllers to javafx.fxml;
+    exports zxc.kyoto.controllers;
+    opens zxc.kyoto to javafx.graphics;
     exports zxc.kyoto;
 }
