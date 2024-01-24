@@ -19,7 +19,7 @@ CREATE TYPE guild_post AS ENUM
 CREATE TABLE trials (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    time_start TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
+    time_start TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     time_end TIMESTAMP NOT NULL DEFAULT ('9999-12-31 23:59:59'),
     description TEXT,
     CHECK (time_end >= time_start)
