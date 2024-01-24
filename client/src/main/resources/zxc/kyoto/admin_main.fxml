@@ -26,7 +26,7 @@
             </children>
         </AnchorPane>
         <TextArea fx:id="output" layoutX="291.0" layoutY="96.0" prefHeight="268.0" prefWidth="269.0" style="-fx-border-color: #000000; -fx-border-radius: 3;" />
-        <Button fx:id="createTournamentButton" layoutX="150.0" layoutY="115.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="create tournament" textFill="WHITE" />
+        <Button fx:id="createTournamentButton" layoutX="150.0" layoutY="115.0" mnemonicParsing="false" onAction="#startTournament" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="create tournament" textFill="WHITE" />
         <Button fx:id="addWriterButton" layoutX="150.0" layoutY="164.0" mnemonicParsing="false" onAction="#addWriter" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="add writer " textFill="WHITE" />
         <Label layoutX="75.0" layoutY="82.0" text="Available actions">
             <font>

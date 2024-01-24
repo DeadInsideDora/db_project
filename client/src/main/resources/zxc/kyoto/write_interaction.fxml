@@ -51,7 +51,7 @@
          </font>
       </Label>
       <Label fx:id="error" layoutX="22.0" layoutY="328.0" prefHeight="26.0" prefWidth="508.0" />
-      <TextField fx:id="interectionDescription" layoutX="200.0" layoutY="242.0" promptText="description" />
+      <TextField fx:id="interactionDescription" layoutX="200.0" layoutY="242.0" promptText="group description" />
       <Label layoutX="207.0" layoutY="210.0" text="Input descriprion ">
          <font>
             <Font size="16.0" />
