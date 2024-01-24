@@ -16,7 +16,6 @@ public class Client {
 
     public void startConnection(String ip, int port) throws IOException {
         clientSocket = new Socket(ip, port);
-        System.out.println("connect");
         out = new ObjectOutputStream(clientSocket.getOutputStream());
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }

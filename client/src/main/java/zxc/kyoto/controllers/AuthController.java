@@ -12,6 +12,7 @@ public class AuthController {
 
     @FXML
     protected void login() {
+
     }
 
     @FXML

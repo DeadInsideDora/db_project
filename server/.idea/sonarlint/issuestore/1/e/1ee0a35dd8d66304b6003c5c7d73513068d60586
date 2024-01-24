@@ -1,15 +1,0 @@
-
-k	java:S116"VRename this field "JDBC_DRIVER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å‰¼Š
-7
-java:S1170"!Make this final field static too.(å‰¼Š
-?	java:S106"+Replace this use of System.out by a logger.(åëå{
-@	java:S106"+Replace this use of System.out by a logger.(ì„Ûğ
-E	java:S1061"+Replace this use of System.out by a logger.(ü¤ûåşÿÿÿÿ
->	java:S108C")Either remove or fill this block of code.(»Œ¿é
-E	java:S106N"+Replace this use of System.out by a logger.(ŞÉ‘şÿÿÿÿ
-@	java:S106P"+Replace this use of System.out by a logger.(ÇÚ¦ß
-E	java:S106\"+Replace this use of System.out by a logger.(ıª†‰ùÿÿÿÿ
-E	java:S106h"+Replace this use of System.out by a logger.(Ğü–øÿÿÿÿÿ
-E	java:S106t"+Replace this use of System.out by a logger.(˜¯«şÿÿÿÿ
-@	java:S106€"+Replace this use of System.out by a logger.(†Áï8
-F	java:S106Œ"+Replace this use of System.out by a logger.(‹ò‰ûÿÿÿÿ
