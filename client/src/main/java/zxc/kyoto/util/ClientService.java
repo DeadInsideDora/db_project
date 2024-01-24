@@ -6,9 +6,14 @@ import java.io.IOException;
 public class ClientService {
     private static Client client = new Client();
 
-    public static String handle(Object o) throws IOException {
-        client.startConnection("127.0.0.1", 4444);
-        return client.sendObject(o);
+    public static String service(Object o) {
+        try {
+            client.startConnection("127.0.0.1", 4444);
+            return client.sendObject(o);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
