@@ -239,6 +239,62 @@ public class DataBaseService {
         }
     }
 
+    public static boolean endTournament() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("update tournament set time_end = current_timestamp\n" +
+                            "where time_start < current_timestamp\n" +
+                            "and time_end > current_timestamp", false);
+            statement.executeQuery();
+            return true;
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
 
+    public static ResultSet getCandidateStatus(String firstName, String lastName) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select first_name, last_name, s.description, t.title\n" +
+                            "        from candidates\n" +
+                            "        join status s on s.id = candidates.status_id\n" +
+                            "        left join trial_in_process tip on candidates.id = tip.candidate_id\n" +
+                            "        left join trials t on tip.trial_id = t.id\n" +
+                            "        where first_name = ? \n" +
+                            "        and last_name = ?", false);
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            return statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
+
+    public static ResultSet getHistByCandidate(String firstName, String lastName) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select first_name, last_name, s.description, title\n" +
+                            "from candidates\n" +
+                            "join trials_history th on candidates.id = th.candidate_id\n" +
+                            "join status s on th.trial_status = s.id\n" +
+                            "join trials t on th.trial_id = t.id\n" +
+                            "where first_name = ?\n" +
+                            "and last_name = ?", false);
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            return statement.executeQuery();
+        } catch (SQLException exception) {
+            throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
 
 }

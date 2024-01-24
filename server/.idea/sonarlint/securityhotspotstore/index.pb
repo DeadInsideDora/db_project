@@ -67,3 +67,9 @@ o
 ?src/main/java/zxc/kyoto/handlers/TrialInProcessInfoHandler.java,b/d/bdb2ff7f5cfa928038ef0505b14ce6cfe23edcf2
 n
 >src/main/java/zxc/kyoto/handlers/CurrentTrialsListHandler.java,c/3/c326d6062901024a65cd1b9b468bfc37b954f417
+j
+:src/main/java/zxc/kyoto/handlers/EndTournamentHandler.java,0/2/025cad9e0734e8c6ea1a271d1d9b6c6dc2aafb49
+l
+<src/main/java/zxc/kyoto/handlers/CandidateStatusHandler.java,7/8/78a983da0e14265b191a3881e5fea5dec7f75596
+m
+=src/main/java/zxc/kyoto/handlers/CandidateHistoryHandler.java,3/3/3306b9f71d30544c75ef88a04836c4e09c169b62

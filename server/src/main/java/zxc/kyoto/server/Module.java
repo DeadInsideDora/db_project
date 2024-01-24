@@ -24,6 +24,9 @@ public final class Module {
         handlers.put("update_candidate", new UpdateCandidateProgressHandler());
         handlers.put("add_interaction", new InteractionHandler());
         handlers.put("trials_list", new CurrentTrialsListHandler());
+        handlers.put("end_tournament", new EndTournamentHandler());
+        handlers.put("stat_candidate", new CandidateStatusHandler());
+        handlers.put("hist_candidate", new CandidateHistoryHandler());
     }
 
     public static String handle(Request request) {
