@@ -24,25 +24,31 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="createITrialButton" layoutX="220.0" layoutY="342.0" mnemonicParsing="false" onAction="#createTrial" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create trial" textFill="WHITE" />
-      <TextField fx:id="newTrial" layoutX="200.0" layoutY="128.0" promptText="title" />
-      <Label layoutX="231.0" layoutY="98.0" text="Input  trial title:">
+      <Button fx:id="createITrialButton" layoutX="220.0" layoutY="357.0" mnemonicParsing="false" onAction="#createTrial" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create trial" textFill="WHITE" />
+      <TextField fx:id="newTrial" layoutX="199.0" layoutY="104.0" promptText="title" />
+      <Label layoutX="230.0" layoutY="74.0" text="Input  trial title:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="85.0" layoutY="167.0" text="Input full names of all the organizers separated by commas">
+      <Label layoutX="84.0" layoutY="143.0" text="Input full names of all the organizers separated by commas">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="organizators" layoutX="200.0" layoutY="198.0" promptText="organizers" />
-      <Label layoutX="161.0" layoutY="237.0" text="Input all rules separated by commas">
+      <TextField fx:id="organizators" layoutX="199.0" layoutY="174.0" promptText="organizers" />
+      <Label layoutX="160.0" layoutY="208.0" text="Input all rules separated by commas">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="rules" layoutX="199.0" layoutY="268.0" promptText="rules" />
-      <Label fx:id="error" layoutX="145.0" layoutY="308.0" prefHeight="20.0" prefWidth="272.0" />
+      <TextField fx:id="rules" layoutX="198.0" layoutY="235.0" promptText="rules" />
+      <Label fx:id="error" layoutX="145.0" layoutY="330.0" prefHeight="20.0" prefWidth="272.0" />
+      <Label layoutX="208.0" layoutY="266.0" text="Input trial description">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="trialDescription" layoutX="201.0" layoutY="291.0" promptText="description" />
    </children>
 </AnchorPane>
