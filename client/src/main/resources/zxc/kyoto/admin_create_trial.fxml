@@ -24,24 +24,25 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="createITrialButton" layoutX="220.0" layoutY="333.0" mnemonicParsing="false" onAction="#createTrial" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create trial" textFill="WHITE" />
-      <TextField fx:id="newTrial" layoutX="200.0" layoutY="139.0" promptText="title" />
+      <Button fx:id="createITrialButton" layoutX="220.0" layoutY="342.0" mnemonicParsing="false" onAction="#createTrial" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create trial" textFill="WHITE" />
+      <TextField fx:id="newTrial" layoutX="200.0" layoutY="128.0" promptText="title" />
       <Label layoutX="231.0" layoutY="98.0" text="Input  trial title:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="85.0" layoutY="190.0" text="Input full names of all the organizers separated by commas">
+      <Label layoutX="85.0" layoutY="167.0" text="Input full names of all the organizers separated by commas">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="organizators" layoutX="200.0" layoutY="218.0" promptText="organizers" />
-      <Label layoutX="161.0" layoutY="258.0" text="Input all rules separated by commas">
+      <TextField fx:id="organizators" layoutX="200.0" layoutY="198.0" promptText="organizers" />
+      <Label layoutX="161.0" layoutY="237.0" text="Input all rules separated by commas">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="rules" layoutX="199.0" layoutY="291.0" promptText="rules" />
+      <TextField fx:id="rules" layoutX="199.0" layoutY="268.0" promptText="rules" />
+      <Label fx:id="error" layoutX="145.0" layoutY="308.0" prefHeight="20.0" prefWidth="272.0" />
    </children>
 </AnchorPane>

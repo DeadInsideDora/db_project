@@ -25,27 +25,34 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="createInteractionButton" layoutX="221.0" layoutY="332.0" mnemonicParsing="false" onAction="#createInteraction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create interaction" textFill="WHITE" />
-      <TextField fx:id="interactiomMembers" layoutX="200.0" layoutY="139.0" promptText="fill names" />
-      <Label layoutX="62.0" layoutY="99.0" text="Input  full names of all interaction members separated by commas">
+      <Button fx:id="createInteractionButton" layoutX="221.0" layoutY="362.0" mnemonicParsing="false" onAction="#createInteraction" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="create interaction" textFill="WHITE" />
+      <TextField fx:id="interactiomMembers" layoutX="200.0" layoutY="111.0" promptText="fill names" />
+      <Label layoutX="62.0" layoutY="82.0" text="Input  full names of all interaction members separated by commas">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="207.0" layoutY="191.0" text="Input interaction type:">
+      <Label layoutX="207.0" layoutY="148.0" text="Input interaction type:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="interactionType" layoutX="200.0" layoutY="218.0" promptText="type" />
-      <DatePicker fx:id="startTime" layoutX="21.0" layoutY="274.0" />
-      <Label layoutX="68.0" layoutY="246.0" text="Set start time ">
+      <TextField fx:id="interactionType" layoutX="200.0" layoutY="176.0" promptText="type" />
+      <DatePicker fx:id="startTime" layoutX="21.0" layoutY="291.0" />
+      <Label layoutX="68.0" layoutY="263.0" text="Set start time ">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <DatePicker fx:id="endTime" layoutX="343.0" layoutY="273.0" />
-      <Label layoutX="394.0" layoutY="244.0" text="Set end time ">
+      <DatePicker fx:id="endTime" layoutX="343.0" layoutY="290.0" />
+      <Label layoutX="394.0" layoutY="261.0" text="Set end time ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="error" layoutX="22.0" layoutY="328.0" prefHeight="26.0" prefWidth="508.0" />
+      <TextField fx:id="interectionDescription" layoutX="200.0" layoutY="242.0" promptText="description" />
+      <Label layoutX="207.0" layoutY="210.0" text="Input descriprion ">
          <font>
             <Font size="16.0" />
          </font>

@@ -41,5 +41,6 @@
         </Label>
         <Button fx:id="addTrialButton" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" onAction="#addTrial" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="add trial" textFill="WHITE" />
         <Button fx:id="addCandidateButton" layoutX="14.0" layoutY="164.0" mnemonicParsing="false" onAction="#addCandidate" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: #872323;" text="add candidate " textFill="WHITE" />
+      <Label fx:id="error" layoutX="14.0" layoutY="236.0" prefHeight="29.0" prefWidth="255.0" />
     </children>
 </AnchorPane>

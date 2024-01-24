@@ -24,30 +24,31 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="addCandidateButton" layoutX="221.0" layoutY="346.0" mnemonicParsing="false" onAction="#addCandidate" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="add candidate" textFill="WHITE" />
-      <TextField fx:id="firstNameNewCandidate" layoutX="200.0" layoutY="115.0" promptText="first name" />
-      <Label layoutX="200.0" layoutY="88.0" text="First name">
+      <Button fx:id="addCandidateButton" layoutX="221.0" layoutY="350.0" mnemonicParsing="false" onAction="#addCandidate" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="add candidate" textFill="WHITE" />
+      <TextField fx:id="firstNameNewCandidate" layoutX="200.0" layoutY="104.0" promptText="first name" />
+      <Label layoutX="200.0" layoutY="77.0" text="First name">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="159.0" layoutY="200.0" text="Input all facts separated by commas">
+      <Label layoutX="159.0" layoutY="189.0" text="Input all facts separated by commas">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="facts" layoutX="200.0" layoutY="228.0" promptText="facts" />
-      <Label layoutX="150.0" layoutY="268.0" text="Input all weights separated by commas">
+      <TextField fx:id="facts" layoutX="200.0" layoutY="217.0" promptText="facts" />
+      <Label layoutX="150.0" layoutY="257.0" text="Input all weights separated by commas">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="weights" layoutX="199.0" layoutY="301.0" promptText="weights" />
-      <Label layoutX="200.0" layoutY="142.0" text="Last name">
+      <TextField fx:id="weights" layoutX="199.0" layoutY="290.0" promptText="weights" />
+      <Label layoutX="200.0" layoutY="131.0" text="Last name">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="lastNameNewCandidate" layoutX="199.0" layoutY="164.0" promptText="last name" />
+      <TextField fx:id="lastNameNewCandidate" layoutX="199.0" layoutY="153.0" promptText="last name" />
+      <Label fx:id="error" layoutX="108.0" layoutY="323.0" prefHeight="20.0" prefWidth="345.0" />
    </children>
 </AnchorPane>
