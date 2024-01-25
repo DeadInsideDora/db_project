@@ -82,6 +82,7 @@ public class DataBaseService {
             statement.setString(2, trialsGroupTitle);
             statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -99,6 +100,7 @@ public class DataBaseService {
             statement.setString(3, post);
             statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -151,6 +153,7 @@ public class DataBaseService {
                     databaseHandler.getPreparedStatement("select end_trial()", false);
             statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -166,6 +169,7 @@ public class DataBaseService {
             statement.setString(1, trialTitle);
             statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -182,6 +186,7 @@ public class DataBaseService {
             statement.setArray(2, databaseHandler.getConnection().createArrayOf("varchar", newStatuses));
             statement.executeQuery();
         } catch (SQLException exception) {
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
         } finally {
             databaseHandler.closePreparedStatement(statement);
@@ -197,10 +202,13 @@ public class DataBaseService {
                             "from tournament\n" +
                             "join trials_group tg on tg.id = tournament.trials_group_id\n" +
                             "join trials_history trh on tournament.id = trh.tournament_id\n" +
-                            "join trials t on t.id = trh.trial_id\n" +
-                            "join candidates c on c.id = trh.candidate_id\n" +
+                            "join trials_in_group tig on tg.id = tig.trials_group\n" +
+                            "join trials t on t.id = trh.trial_id and t.id=tig.trials_id\n" +
+                            "join candidates c on c.id = candidate_id\n" +
                             "join status s on s.id = trh.trial_status\n" +
-                            "left join teams on teams.id = c.team_id", false);
+                            "left join teams on teams.id = c.team_id\n" +
+                            "where tournament.time_start < CURRENT_TIMESTAMP\n" +
+                            "and tournament.time_end > CURRENT_TIMESTAMP", false);
             ResultSet resultSet = statement.executeQuery();
             String infoSet = "Сводка по турниру:\n\n";
             while (resultSet.next()) {
@@ -212,12 +220,12 @@ public class DataBaseService {
                         "Команда: " + team + "\n" +
                         "Испытание: " + resultSet.getString(5) + "\n" +
                         "\tОписание: " + resultSet.getString(6) + "\n" +
-                        "Статус: " + resultSet.getString(7) + "\n\n";
+                        "Результат прохождения испытания: " + resultSet.getString(7) + "\n\n";
             }
 
             return infoSet;
         } catch (SQLException exception) {
-            throw new SQLException(exception);
+            throw new SQLException("В данный момент турнир не проводится.");
         } finally {
             databaseHandler.closePreparedStatement(statement);
         }
@@ -242,7 +250,7 @@ public class DataBaseService {
                     "\tДолжность: " + resultSet.getString("post") + "\n\n";
             return infoSet;
         } catch (SQLException exception) {
-            return "В данный момент испытания не проводятся";
+            throw new SQLException("В данный момент испытания не проводятся");
         } finally {
             databaseHandler.closePreparedStatement(statement);
         }
@@ -306,8 +314,33 @@ public class DataBaseService {
             statement.executeQuery();
             return true;
         } catch (SQLException exception) {
-            if (exception.getMessage().equals("Запрос не вернул результатов.")) return true;
+            if (exception.getMessage().equals("No results were returned by the query.") || exception.getMessage().equals("Запрос не вернул результатов.")) return true;
             throw new SQLException(exception);
+        } finally {
+            databaseHandler.closePreparedStatement(statement);
+        }
+    }
+
+    public static String getNewHunters() throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            statement =
+                    databaseHandler.getPreparedStatement("select first_name, last_name, description\n" +
+                            "        from candidates\n" +
+                            "        join status on status.id = candidates.status_id\n" +
+                            "        where status.description = 'ДОПУЩЕН К ПОЛУЧЕНИЮ ЗВАНИЯ' ", false);
+            ResultSet resultSet = statement.executeQuery();
+
+            String infoSet = "Список прошедших турнир:\n";
+            while(resultSet.next()) {
+                infoSet += "\tИмя: " + resultSet.getString("first_name") + ' ' + resultSet.getString("last_name") + " \n" +
+                        "\t\tСтатус: " + resultSet.getString("description") + " \n";
+            }
+
+            return infoSet;
+
+        } catch (SQLException exception) {
+            throw new SQLException("Победители в турнире отсутствуют.");
         } finally {
             databaseHandler.closePreparedStatement(statement);
         }

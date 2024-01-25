@@ -3,8 +3,6 @@ package zxc.kyoto.handlers;
 import zxc.kyoto.entity.User;
 import zxc.kyoto.util.Roles;
 
-import java.sql.ResultSet;
-
 import static zxc.kyoto.dao.DataBaseService.getCandidatesInProcessInfo;
 import static zxc.kyoto.dao.DataBaseService.getTrialInProcessInfo;
 

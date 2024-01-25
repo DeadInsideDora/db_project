@@ -1,20 +1,3 @@
-CREATE TYPE guild_post AS ENUM 
-('Guild Master',
-'Vice Guild Master',
-'Senior Hunter',
-'Examiner',
-'Trainer',
-'Mission Coordinator',
-'Field Researcher',
-'Combat Specialist',
-'Intelligence Analyst',
-'Medical Officer',
-'Infiltration Expert',
-'Beast Hunter',
-'Archivist',
-'Navigational Specialist',
-'Artifact Collector');
-
 
 CREATE TABLE trials (
     id SERIAL PRIMARY KEY,
@@ -163,3 +146,5 @@ CREATE TABLE interaction (
     FOREIGN KEY (interaction_types_id) REFERENCES interaction_types(id) ON DELETE CASCADE,
     CHECK (time_end > time_start)
 );
+
+insert into status (description) values ('ДОПУЩЕН К ИСПЫТАНИЮ'), ('В ПРОЦЕССЕ ИСПЫТАНИЯ'), ('ПРОШЕЛ ИСПЫТАНИЕ'), ('ВЫБЫЛ В ПРОЦЕССЕ ИСПЫТАНИЯ'), ('ДИСКВАЛИФИЦИРОВАН В ПРОЦЕССЕ ИСПЫПЫТАНИЯ'), ('УМЕР В ПРОЦЕССЕ ИСПЫТАНИЯ'),  ('ДОПУЩЕН К ПОЛУЧЕНИЮ ЗВАНИЯ');

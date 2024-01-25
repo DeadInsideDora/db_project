@@ -195,7 +195,7 @@ FOR v_rec IN SELECT (c.first_name || ' ' || c.last_name) AS full_name, 'ПРОШ
 
     -- Вызываем функцию update_candidate_status_and_history для всех записей
 UPDATE trials SET time_end = CURRENT_TIMESTAMP where id = v_rec.v_trial_id;
-SELECT update_candidate_status_and_history(v_candidate_names,v_new_statuses);
+PERFORM update_candidate_status_and_history(v_candidate_names,v_new_statuses);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -322,3 +322,4 @@ BEGIN
         c.status_id = (SELECT id FROM status WHERE description = 'ДОПУЩЕН К ИСПЫТАНИЮ');
 END;
 $$ LANGUAGE plpgsql;
+

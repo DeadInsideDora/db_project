@@ -74,7 +74,7 @@ public class AdminController {
     public void endTournament() {
         Request request = new Request(UserContainer.getUser(), new String[]{"end_tournament"});
         String response = ClientService.service(request);
-        error.setText(response);
+        output.setText(response);
     }
 
     @FXML

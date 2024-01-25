@@ -14,5 +14,4 @@ TRUNCATE trials_in_group CASCADE;
 TRUNCATE trials CASCADE;
 TRUNCATE tournament CASCADE;
 TRUNCATE hunters_guild CASCADE;
-TRUNCATE status CASCADE;
 TRUNCATE interaction_types CASCADE;
