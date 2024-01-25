@@ -242,7 +242,7 @@ public class DataBaseService {
                     "\tДолжность: " + resultSet.getString("post") + "\n\n";
             return infoSet;
         } catch (SQLException exception) {
-            throw new SQLException(exception);
+            return "В данный момент испытания не проводятся";
         } finally {
             databaseHandler.closePreparedStatement(statement);
         }
